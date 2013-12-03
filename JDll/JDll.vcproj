@@ -116,7 +116,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="&quot;C:\Program Files\Java\jdk1.6.0_25\include&quot;;&quot;C:\Program Files\Java\jdk1.6.0_25\include\win32&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JDLL_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -175,7 +175,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\JDll.cpp"
+				RelativePath=".\CDll.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\JNI_Dll.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\JNI_Dll.h"
 				>
 			</File>
 		</Filter>
