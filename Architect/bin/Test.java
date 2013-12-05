@@ -19,6 +19,7 @@ public class Test {
 	{
 		Test tt = new Test();
 		Test.showVoidContent();
+		Test.showReturnContent();
 		String str = Test.getOneContent("aaa", "bbb");
 		System.out.println(str);
 		

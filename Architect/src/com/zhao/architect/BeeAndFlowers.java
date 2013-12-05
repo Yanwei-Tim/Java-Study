@@ -1,4 +1,4 @@
-package test;
+package com.zhao.architect;
 
 import java.util.ArrayList;
 import java.util.Iterator;

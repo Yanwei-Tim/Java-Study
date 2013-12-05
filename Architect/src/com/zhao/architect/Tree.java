@@ -1,4 +1,4 @@
-package test;
+package com.zhao.architect;
 
 public class Tree {
 

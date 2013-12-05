@@ -179,6 +179,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\JClass.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\JNI_Dll.cpp"
 				>
 			</File>
@@ -186,7 +190,15 @@
 				RelativePath=".\JNI_Dll.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Test.java.txt"
+				>
+			</File>
 		</Filter>
+		<File
+			RelativePath=".\JClass.h"
+			>
+		</File>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

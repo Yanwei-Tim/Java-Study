@@ -1,8 +1,10 @@
 #include "JNI_Dll.h"
 #include <malloc.h>
+#include "JClass.h"
 
 JNIEXPORT void JNICALL Java_Test_showVoidContent(JNIEnv *env, jclass cls){
-
+	JClass *obj = new JClass;
+	obj->getNum();
 }
 
  JNIEXPORT jstring  JNICALL Java_Test_getOneContent

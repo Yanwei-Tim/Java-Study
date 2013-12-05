@@ -1,6 +1,7 @@
-public class Test {
+package com.zhao.test;
+public class TestJNI {
 	static {
-		System.loadLibrary("src/JDll");
+		System.loadLibrary("E:\\Works\\Git-Space\\Java-Study\\Architect\\src\\JDll.dll");
 	}
 
 	public native static void showVoidContent();
@@ -16,8 +17,8 @@ public class Test {
 			String three);
 
 	public static void main(String[] args) {
-		Test tt = new Test();
-		String str = Test.getOneContent("¸ã·É»ú", "¸ã´óÂé");
+		//TestJNI tt = new TestJNI();
+		String str = TestJNI.getOneContent("¸ã·É»ú", "¸ã´óÂé");
 		System.out.println(str);
 
 	}
