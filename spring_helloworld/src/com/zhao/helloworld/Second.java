@@ -4,10 +4,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 public class Second {
 	 @Autowired
-	 @Qualifier("HelloImpl")
-	  private Hello hello; 
+	  private Hello hello2;
 	 
-	 void say(){
+	 @Autowired
+	 private Hello hello; 
+	 
+	 void say2(){
+		 System.out.println("hello:--" + hello.toString());
+		 System.out.println("hello2:--" + hello2.toString());
+		 
 		 hello.sayHello();
+		 hello2.sayHello2();
 	 }
 }

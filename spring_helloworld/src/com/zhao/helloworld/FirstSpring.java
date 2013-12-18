@@ -8,21 +8,21 @@ public class FirstSpring {
 	
 	
 	public static void testHello() {
-		 Hello hello =(Hello) applicationContext.getBean("sayhello");
+		 Hello hello =(Hello) applicationContext.getBean("hello");
 		 hello.sayHello();
-		 System.out.println(hello.getClass() + "-- " +
-		 hello.getClass().getName());
+		 System.out.println("hello:--" + hello.toString());
 	}
 
 	public static void testHello2() {
-		Second sec = new Second();
-		sec.say();
+		Second sec = (Second) applicationContext.getBean("second");
+		sec.say2();
 	}
 	
 	public static void main(String[] args) {
 		applicationContext = new ClassPathXmlApplicationContext(
 				new String[]{"applicationContext.xml"});
+		
 		testHello();
-		//testHello2();
+		testHello2();
 	}
 }
