@@ -1,0 +1,21 @@
+MyBatis/iBatis Hello World application.
+
+This sample app demonstrates hpw to setup iBatis/MyBatis and simple insert, update, select and delete statements.
+
+To run the tests, just run the class inside the com.loiane.test.* package (JUnit)
+
+All libs/jars included.
+
+Please run the scrip inside sql/script.sql
+
+Tools used to implement this project:
+Eclipse IDE - Java project
+MySQL
+
+Post URL explaning this project step-by-step:
+Enhlish: http://loianegroner.com/2011/02/getting-started-with-ibatis-mybatis-xml-configuration/
+Portuguese-Brazil: http://www.loiane.com/2011/02/comecando-com-ibatis-mybatis-configuracao-em-xml/
+
+Loiane Groner
+http://loianegroner.com (English)
+http://loiane.com (Portuguese)
