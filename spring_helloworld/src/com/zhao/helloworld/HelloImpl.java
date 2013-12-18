@@ -1,8 +1,8 @@
 package com.zhao.helloworld;
 
-import org.springframework.stereotype.Service;
+//import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class HelloImpl implements Hello {
 
 	@Override
