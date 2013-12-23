@@ -1,2 +1,5 @@
 /fileTransferClient/bin/proxyclient/*.class
 *.class
+/spring_helloworld/bin
+
+/ibatis-helloworld-master/bin
