@@ -1,0 +1,8 @@
+
+host÷–≈‰÷√ 192.168.0.1 cas.min.com
+
+#select * from cookies where host_key='cas.min.com'
+#delete from cookies where host_key!='cas.min.com'
+
+http.request and !tcp[20:] matches ".gif|.ico|/css|/js"
+http.request and !http matches ".gif|.ico|/css|/js"

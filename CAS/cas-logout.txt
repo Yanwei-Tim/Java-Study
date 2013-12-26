@@ -1,0 +1,53 @@
+#####
+#logout是将CASTGC 清空。
+#包头中发现：
+Set-Cookie: CASTGC=""; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/CAS
+Set-Cookie: CASPRIVACY=""; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/CAS
+在chrome cookies文件中发现CASTGC被删除了
+####
+
+GET /CAS/logout HTTP/1.1
+
+Host: cas.min.com:8080
+
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/536.30.1 (KHTML, like Gecko) Version/6.0.5 Safari/536.30.1
+
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+
+Referer: http://cas.min.com:8080/CASClient/
+
+Accept-Language: zh-cn
+
+Accept-Encoding: gzip, deflate
+
+Cookie: CASTGC=TGT-2-zrf9aMZci61XTRDueTAGq7IdWuOhed5j0nR5qP3A6mcvVNF9fM-cas; JSESSIONID=567192182E79CF711FDE2661B3B7119E
+
+Connection: keep-alive
+
+
+HTTP/1.1 200 OK
+
+Server: Apache-Coyote/1.1
+
+Pragma: no-cache
+
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+
+Cache-Control: no-cache
+
+Cache-Control: no-store
+
+Set-Cookie: CASTGC=""; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/CAS
+
+Set-Cookie: CASPRIVACY=""; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/CAS
+
+Set-Cookie: JSESSIONID=794DB4CE06D77CE8A4CEEE144266D505; Path=/CAS
+
+Content-Type: text/html;charset=UTF-8
+
+Content-Language: zh-CN
+
+Content-Length: 1828
+
+Date: Tue, 24 Dec 2013 06:38:32 GMT
+

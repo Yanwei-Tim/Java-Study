@@ -1,0 +1,14 @@
+Android Account Manager 
+#Account Manager read com.google
+Bundle[
+{
+	accountType=com.google, 
+	authtoken=DQAAAMsAAAD4QEDs8MqfHnPb7K-0b8xac7ghWPToVKEd7JI6nVKq0gs36sQoVF_nr6tI9TY6-0FlUc5E5PTP873Pki6zwB-h_0-0-g7geL7WEw4enX37Y3NyyWQvBwwLe5Dov5EsyYRZwM2FN6fUVPBHsYXIb_NNtOPf-LgHCQoAcWnjYOWEqwoG4-4yedxH2-WmO_po5V3w_ZvLOuflR6weRzzZqsPc-ju6Z4y04lP0zr49mnMYZfwRkfudTLFGvp_e6jOgcKVdj50WF6zZaxLHSxmWBUoB,
+	authAccount=zhuifeng1017@gmail.com
+}
+
+]
+
+#Account Manager read com.taobao
+bundle : Bundle[{errorMessage=lack permissions, errorCode=101}]
+

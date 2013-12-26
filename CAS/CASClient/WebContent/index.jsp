@@ -24,28 +24,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  <h1><%=path%></h1>
   	你已经登录进来了兄弟，下面是你的登录信息：
   	<%
   	AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal(); 
-
   	Map<String, Object> attributes = principal.getAttributes();
-  	String userId = "";
-  	String userClass = "";
+  	String userName = principal.getName();
+  	//String userClass = "";
+  	String userName2 = ((Assertion)(request.getSession().getAttribute("_const_cas_assertion_"))).getPrincipal().getName(); 
   	if(attributes != null) {
-  		//userId = attributes.get("UserId").toString();
+  		//userId = attributes.get("uid").toString();
   		//userClass = attributes.get("UserClass").toString();
   		System.out.println("attributes:" + attributes);
   		System.out.println("session:" + session);
+  		
+  		Enumeration enums = session.getAttributeNames();
+  		System.out.println("session Attribus:" + enums);
+  		while(enums.hasMoreElements()){
+  			System.out.println("enums.nextElement:" + enums.nextElement());
+  		}
   	}
   	%>
-  	<p><%=userId %></p>
-  	<p><%=userClass %></p>
+  	<p>用户名：<%=userName %></p>
+  	<%=userName2 %>
   	<%
   		if(session != null){%>
   			<p><%=session.getId() %></p>		
   		<%}
   	%>
-  	
-  	<a href="http://unissh0129:8080/CAS/logout">退出登录</a>
+  	<p>
+  	<a href=ttt.html>ttt.html</a>
+  	<p>
+  	<a href="logout.jsp">退出登录</a>
   </body>
 </html>

@@ -1,0 +1,4 @@
+他们就是用的sso， 一个登录，另外一个也登陆了。
+一个注销，另外一个也接着注销了。
+它是采用android account manager 管理的， 
+查看account.db发现，登陆后db多了taobao的ssotoken，注销后就将其删除了。

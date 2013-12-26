@@ -6,6 +6,7 @@
 	
 	<!-- CAS 相关配置文件-->
 	<!-- 单点登出,一定要在最前面  -->
+	
 	<filter>
 		<filter-name>CAS Single Sign Out Filter</filter-name>
 		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
@@ -20,6 +21,11 @@
 		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
 	</listener>
 	
+	<!-- 填写退出的URL -->
+	<context-param>
+		<param-name>casServerLogoutUrl</param-name>
+		<param-value>http://cas.min.com:8080/CAS/logout</param-value>
+	</context-param> 
 	
 	<!--单点登录 -->
 	<filter>
@@ -28,7 +34,7 @@
 		<!-- CAS login 服务地址-->
 		<init-param>
 			<param-name>casServerLoginUrl</param-name>
-			<param-value>http://unissh0129:8080/CAS/login</param-value>
+			<param-value>http://cas.min.com:8080/CAS/login/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>renew</param-name>
@@ -41,7 +47,7 @@
 		<!-- 客户端应用服务地址-->
 		<init-param>
 			<param-name>serverName</param-name>
-			<param-value>http://localhost:8080/</param-value>
+			<param-value>http://cas.min.com:8080/</param-value>
 		</init-param>
 	</filter>
 
@@ -53,11 +59,11 @@
 		<init-param>
 			<param-name>casServerUrlPrefix</param-name>
             <!-- 下面一定要是主机名称 -->
-			<param-value>http://unissh0129:8080/CAS</param-value>
+			<param-value>http://cas.min.com:8080/CAS/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
-			<param-value>http://localhost:8080/</param-value>
+			<param-value>http://cas.min.com:8080/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>useSession</param-name>
@@ -82,7 +88,7 @@
 		<filter-name>CAS Assertion Thread Local Filter</filter-name>
 		<filter-class>org.jasig.cas.client.util.AssertionThreadLocalFilter</filter-class>
 	</filter>
-
+	
 	<filter-mapping>
 		<filter-name>CAS Authentication Filter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -103,6 +109,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!-- CAS 配置文件结束 -->
+	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
