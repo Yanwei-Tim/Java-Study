@@ -1,0 +1,40 @@
+CAS认证输入错误的用户名密码返回的是错误的网页。以后要支持终端设备，这个是需要修改的！！！！！！！！
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+username=sd&password=dsss&lt=e1s1&_eventId=submit&submit=%E7%99%BB%E5%BD%95HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Cache-Control: no-cache
+Cache-Control: no-store
+Content-Type: text/html;charset=UTF-8
+Content-Length: 5807
+Date: Fri, 27 Dec 2013 01:20:28 GMT
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+.<head>
+.    <title>CAS &#8211; Central Authentication Service</title>
+        
+           
+           
+                <link type="text/css" rel="stylesheet" href="css/cas.css" />
+                <script type="text/javascript" src="js/common_rosters.js"></script>
+           
+        
+.    <link rel="icon" href="/CAS/favicon.ico" type="image/x-icon" />
+.</head>
+.<body id="cas" onload="init();" class="fl-theme-iphone">
+    <div class="flc-screenNavigator-view-container">
+        <div class="fl-screenNavigator-view">
+            <div id="header" class="flc-screenNavigator-navbar fl-navbar fl-table">
+                <h1 id="app-name" class="fl-table-cell">Central Authentication Service (CAS)</h1>
+            </div>..
+            <div id="content" class="fl-screenNavigator-scroll-container">
+
+...<form id="fm1" class="fm-v clearfix" action="/CAS/login?service=http%3A%2F%2Fcas.min.com%3A8080%2FCASClient%2F" method="post">
+...    <div id="status" class="errors">...........................</div>
+                <div class="box fl-panel" id="login">
