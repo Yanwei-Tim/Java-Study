@@ -145,19 +145,7 @@
 		<property name="dataSource" ref="dataSource2" />
 	</bean>
 
-	<!-- 事务管理器配置,单数据源事务 -->
-	<!--  
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	-->
-	
-	<!-- 使用annotation定义事务 -->
-	<!--
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	-->
-	
+
 	<!-- Spring iBatisTemplate -->
 	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
 		<property name="sqlMapClient">
@@ -171,63 +159,5 @@
 		</property>
 	</bean>
 	
-
-	<!-- 以AspectJ方式 定义 AOP -->
-	<!--
-	<aop:config proxy-target-class="true">
-		<aop:advisor pointcut="execution(* com.unistrong.appstore..*Service.*(..))"
-			advice-ref="txAdvice" />
-	</aop:config>-->
-	
-	<!--
-	<tx:advice id="txAdvice">
-		<tx:attributes>
-			<tx:method name="get*" />
-			<tx:method name="find*" />
-			<tx:method name="query*" />
-			<tx:method name="*" />
-		</tx:attributes>
-	</tx:advice>-->
-	
-	<!-- memcached 注册 -->
-	<!--
-	<bean id="sockIOPool" class="com.danga.MemCached.SockIOPool"
-		factory-method="getInstance" init-method="initialize" destroy-method="shutDown">
-		<constructor-arg>
-			<value>memcachedPool</value>
-		</constructor-arg>
-		<property name="servers">
-			<list>
-				<value>${memcache.server}</value>
-			</list>
-		</property>
-		<property name="initConn">
-			<value>${memcache.initConn}</value>
-		</property>
-		<property name="maxConn">
-			<value>${memcache.maxConn}</value>
-		</property>
-		<property name="maintSleep">
-			<value>${memcache.maintSleep}</value>
-		</property>
-		<property name="nagle">
-			<value>${memcache.nagle}</value>
-		</property>
-		<property name="socketTO">
-			<value>${memcache.socketTO}</value>
-		</property>
-	</bean>-->
-	
-	<!--
-	<bean id="memcachedClient" class="com.danga.MemCached.MemCachedClient">
-		<constructor-arg>
-			<value>memcachedPool</value>
-		</constructor-arg>
-	</bean>-->
-
-	<!-- 使用annotation定义AOP -->
-	<!--<aop:aspectj-autoproxy />-->
-
 	<context:component-scan base-package="com.ssi" />
-	
 </beans>
