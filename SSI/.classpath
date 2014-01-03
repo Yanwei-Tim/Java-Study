@@ -16,7 +16,7 @@
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.instrument.tomcat-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.jdbc-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.jms-3.1.0.RELEASE.jar"/>
-	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.orm-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.orm-3.1.0.RELEASE.jar" sourcepath="E:/android/java_framework/src_spring/v_3.1.0"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.oxm-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.test-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.transaction-3.1.0.RELEASE.jar"/>
