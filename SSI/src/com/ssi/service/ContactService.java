@@ -3,6 +3,7 @@
  */
 package com.ssi.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ssi.bean.Contact;
@@ -13,6 +14,7 @@ import com.ssi.bean.Contact;
  */
 public interface ContactService {
 	public Map selectById(int id) throws Exception;
-	public void insert(Contact contact) throws Exception;
+	public  List<Map> selectAll() throws Exception;
+	public int insert(Contact contact) throws Exception;
 		
 }

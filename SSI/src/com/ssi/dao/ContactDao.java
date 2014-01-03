@@ -3,6 +3,7 @@
  */
 package com.ssi.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,11 @@ public class ContactDao extends SqlMapClientUtil {
 		return (Map) sqlMapClient.queryForObject("Contact.getById", Integer.valueOf(id));
 	}
 
-	public void insert(Contact contact) throws Exception {
-		
+	public int insert(Contact contact) throws Exception {
+		return (int) sqlMapClient.insert("Contact.insert", contact);
+	}
+	
+	public List<Map> selectAll() throws Exception {
+		return sqlMapClient.queryForList("Contact.getAll");
 	}
 }

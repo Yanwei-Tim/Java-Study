@@ -3,6 +3,7 @@
  */
 package com.ssi.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -31,9 +32,15 @@ public class ContactServiceImpl implements ContactService  {
 	}
 
 	@Override
-	public void insert(Contact contact) throws Exception {
+	public int insert(Contact contact) throws Exception {
 		// TODO Auto-generated method stub
-		contactDao.insert(contact);
+		return contactDao.insert(contact);
+	}
+
+	@Override
+	public List<Map> selectAll() throws Exception {
+		// TODO Auto-generated method stub
+		return contactDao.selectAll();
 	}
 
 }

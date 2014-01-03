@@ -2,11 +2,28 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Manager">
 	<typeAlias alias="Contact" type="com.ssi.bean.Contact" />
-	
+
 	<select id="Contact.getById" parameterClass="int" resultClass="java.util.HashMap">
 		SELECT * FROM CONTACT WHERE CONTACT_ID = #id#
 	</select>
-	
+
+	<select id="Contact.getAll" resultClass="java.util.HashMap">
+		SELECT * FROM CONTACT
+	</select>
+
+	<!-- <insert id="Product.insert" parameterClass="Product"> INSERT INTO product(catalog_id,user_id,name,platform,platform_need,type,version,version_code,min_sdk_version,app_package,language,file_md5,rsa_md5,file_path,price,size,icon,icon_48,icon_72,icon_96,icon_144,ad_image,cad_image,images,version_description,publish_date,short_desc,web_url,description,create_date,modify_date) 
+		VALUES(#catalog_id#,#user_id#,#name#,#platform#,#platform_need#,#type#,#version#,#version_code#,#min_sdk_version#,#app_package#,#language#,#file_md5#,#rsa_md5#,#file_path#,#price#,#size#,#icon#,#icon_48#,#icon_72#,#icon_96#,#icon_144#,#ad_image#,#cad_image#,#images#,#version_description#,#publish_date#,#short_desc#,#web_url#,#description#,#create_date#,#modify_date#) 
+		<selectKey resultClass="long"> <![CDATA[$IDENTITY$]]> </selectKey> </insert> -->
+
+	<insert id="Contact.insert" parameterClass="Contact">
+		INSERT INTO CONTACT (CONTACT_EMAIL, CONTACT_NAME, CONTACT_PHONE)
+		VALUES (#name#, #phone#, #email#);
+		<selectKey keyProperty="id" resultClass="int">
+			select
+			last_insert_id() as id
+		</selectKey>
+	</insert>
+
 </sqlMap>
 
 
