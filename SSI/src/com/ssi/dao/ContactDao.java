@@ -30,6 +30,14 @@ public class ContactDao extends SqlMapClientUtil {
 	}
 
 	public int insert(Contact contact) throws Exception {
+		return (int) sqlMapClient.insert("Contact.insert", contact);
+	}
+	
+	public List<Map> selectAll() throws Exception {
+		return sqlMapClient.queryForList("Contact.getAll");
+	}
+	
+	public int testMultiTransaction(Contact contact) throws Exception{
 		int retId = 0;
 		Connection conn2 = sqlMapClient2.getDataSource().getConnection();
 		Connection conn = sqlMapClient.getDataSource().getConnection();
@@ -41,9 +49,6 @@ public class ContactDao extends SqlMapClientUtil {
 			sqlMapClient2.setUserConnection(conn2);
 			sqlMapClient.setUserConnection(conn);
 			
-//			sqlMapClient2.startTransaction();
-//			sqlMapClient.startTransaction();
-			
 			int lastId = (int) sqlMapClient2.insert("Contact.insert", contact);
 			System.out.println("insert lastId:" + lastId);
 			
@@ -51,22 +56,14 @@ public class ContactDao extends SqlMapClientUtil {
 			
 			conn.commit();
 			conn2.commit();
-//			sqlMapClient.commitTransaction();
-//			sqlMapClient2.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("insert exception:" + e);
 			conn.rollback();
 			conn2.rollback();
 		}finally{
-//			sqlMapClient.endTransaction();
-//			sqlMapClient2.endTransaction();
 			conn.setAutoCommit(flag);
 			conn2.setAutoCommit(flag2);
 		}
 		return retId;
-	}
-	
-	public List<Map> selectAll() throws Exception {
-		return sqlMapClient.queryForList("Contact.getAll");
 	}
 }

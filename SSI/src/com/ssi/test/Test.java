@@ -32,14 +32,17 @@ public class Test {
 			System.out
 					.println("--------------------------------------------------------------------");
 
+			Contact actual = new Contact();
+			actual.setName("zhuifeng");
+			actual.setPhone("10010");
+			actual.setEmail("zhuifeng@gmail.com");
 			for (int i = 0; i < 1; i++) {
-				Contact actual = new Contact();
-				actual.setName("zhuifeng");
-				actual.setPhone(null);
-				actual.setEmail("zhuifeng@gmail.com");
 				int retId = contactService.insert(actual);
 				System.out.println("retId :" + retId);
 			}
+			actual.setPhone(null);
+			contactService.testMultiTransaction(actual);
+
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

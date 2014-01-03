@@ -43,4 +43,10 @@ public class ContactServiceImpl implements ContactService  {
 		return contactDao.selectAll();
 	}
 
+	@Override
+	public int testMultiTransaction(Contact contact) throws Exception {
+		// TODO Auto-generated method stub
+		return contactDao.testMultiTransaction(contact);
+	}
+
 }
