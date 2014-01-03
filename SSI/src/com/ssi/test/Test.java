@@ -25,7 +25,7 @@ public class Test {
 			for (int i = 0; i < 1; i++) {
 				List<Map> list = contactService.selectAll();
 				for (Map map : list) {
-					System.out.println(map.toString());
+					System.out.println(map);
 				}
 			}
 
@@ -35,7 +35,7 @@ public class Test {
 			for (int i = 0; i < 1; i++) {
 				Contact actual = new Contact();
 				actual.setName("zhuifeng");
-				actual.setPhone("(000) 111-1111");
+				actual.setPhone(null);
 				actual.setEmail("zhuifeng@gmail.com");
 				int retId = contactService.insert(actual);
 				System.out.println("retId :" + retId);
