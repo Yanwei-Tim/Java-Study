@@ -30,6 +30,6 @@
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_c3p0/c3p0-oracle-thin-extras-0.9.2.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_c3p0/mchange-commons-java-0.2.3.3.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_mysql/mysql-connector-java-5.1.12-bin.jar"/>
-	<classpathentry kind="lib" path="E:/android/java_framework/ibatis-2.3.0.677.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/ibatis-2.3.0.677.jar" sourcepath="E:/android/java_framework/com.springsource.com.ibatis-sources-2.3.0.677.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

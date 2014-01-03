@@ -17,7 +17,7 @@
 
 	<insert id="Contact.insert" parameterClass="Contact">
 		INSERT INTO contact (CONTACT_EMAIL, CONTACT_NAME, CONTACT_PHONE)
-		VALUES (#name#, #phone#, #email#);
+		VALUES (#email#, #name#, #phone#);
 		<selectKey keyProperty="id" resultClass="int">
 			select
 			last_insert_id() as id
