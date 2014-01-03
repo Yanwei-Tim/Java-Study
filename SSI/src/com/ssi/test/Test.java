@@ -16,7 +16,7 @@ public class Test {
 		try {
 			for (int i = 0; i < 1; i++) {
 				Map map = contactService.selectById(1);
-				System.out.println(map.toString());
+				System.out.println("selectById(1) return " + map);
 			}
 
 			System.out
