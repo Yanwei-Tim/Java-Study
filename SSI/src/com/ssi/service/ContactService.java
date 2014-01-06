@@ -19,4 +19,5 @@ public interface ContactService {
 	
 	public int testMultiTransaction(Contact contact) throws Exception;
 		
+	public int transInsertUpdate(Contact contact) throws Exception;
 }

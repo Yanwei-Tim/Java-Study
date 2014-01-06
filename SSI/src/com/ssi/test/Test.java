@@ -8,11 +8,20 @@ import com.ssi.common.ApplicationContext;
 import com.ssi.service.ContactService;
 
 public class Test {
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ApplicationContext applicationContext = new ApplicationContext();
-		ContactService contactService = applicationContext
-				.loadBean(ContactService.class);
+	static void testTrans(ContactService contactService){
+		Contact contact = new Contact();
+		contact.setName("zhuifeng");
+		contact.setPhone("10010");
+		contact.setEmail("zhuifeng@gmail.com");
+		try {
+			int lastId = contactService.transInsertUpdate(contact);
+			System.out.println("contactService.transInsertUpdate return:" + lastId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	static void test1(ContactService contactService){
 		try {
 			for (int i = 0; i < 1; i++) {
 				Map map = contactService.selectById(1);
@@ -20,7 +29,7 @@ public class Test {
 			}
 
 			System.out
-					.println("--------------------------------------------------------------------");
+					.println("----------------------selectAll----------------------------------------------");
 
 			for (int i = 0; i < 1; i++) {
 				List<Map> list = contactService.selectAll();
@@ -30,7 +39,7 @@ public class Test {
 			}
 
 			System.out
-					.println("--------------------------------------------------------------------");
+					.println("-------------------------insert-------------------------------------------");
 
 			Contact actual = new Contact();
 			actual.setName("zhuifeng");
@@ -48,6 +57,14 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ApplicationContext applicationContext = new ApplicationContext();
+		ContactService contactService = applicationContext
+				.loadBean(ContactService.class);
+		testTrans(contactService);
 	}
 
 }

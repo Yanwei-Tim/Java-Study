@@ -49,4 +49,16 @@ public class ContactServiceImpl implements ContactService  {
 		return contactDao.testMultiTransaction(contact);
 	}
 
+	@Override
+	public int transInsertUpdate(Contact contact) throws Exception {
+		int lastId = 0;
+		lastId = contactDao.insert(contact);
+		Contact obj = new Contact();
+		obj.setEmail(null);
+		obj.setName(contact.getName());
+		obj.setPhone(contact.getPhone());
+		lastId = contactDao.insert(obj);
+		return lastId;
+	}
+
 }
