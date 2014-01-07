@@ -10,12 +10,27 @@ import com.ssi.service.ContactService;
 public class Test {
 	static void testTrans(ContactService contactService){
 		Contact contact = new Contact();
-		contact.setName("zhuifeng");
+		contact.setName("xxxxxx");
 		contact.setPhone("10010");
-		contact.setEmail("zhuifeng@gmail.com");
+		contact.setEmail("xxxx@gmail.com");
 		try {
 			int lastId = contactService.transInsertUpdate(contact);
 			System.out.println("contactService.transInsertUpdate return:" + lastId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	static void testMutilTrans(ContactService contactService){
+		System.out.println("-------------------------testMutilTrans-------------------------------------------");
+
+		Contact contact = new Contact();
+		contact.setName("xxxxxx");
+		contact.setPhone("10010");
+		contact.setEmail("xxxx@gmail.com");
+		try {
+			int lastId = contactService.transMultiDatasource(contact);
+			System.out.println("testMultiTransaction success return:" + lastId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -37,22 +52,6 @@ public class Test {
 					System.out.println(map);
 				}
 			}
-
-			System.out
-					.println("-------------------------insert-------------------------------------------");
-
-			Contact actual = new Contact();
-			actual.setName("zhuifeng");
-			actual.setPhone("10010");
-			actual.setEmail("zhuifeng@gmail.com");
-			for (int i = 0; i < 1; i++) {
-				int retId = contactService.insert(actual);
-				System.out.println("retId :" + retId);
-			}
-			actual.setPhone(null);
-			contactService.testMultiTransaction(actual);
-
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,7 +63,8 @@ public class Test {
 		ApplicationContext applicationContext = new ApplicationContext();
 		ContactService contactService = applicationContext
 				.loadBean(ContactService.class);
-		testTrans(contactService);
+		//testTrans(contactService);
+		testMutilTrans(contactService);
 	}
 
 }

@@ -27,7 +27,7 @@ public class ApplicationContext {
 
 	/** 初始化服务器上下文 */
 	public void initialize() {
-		this.appContext = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
+		this.appContext = new ClassPathXmlApplicationContext(new String[] { "jtom_applicationContext.xml" });
 	}
 
 	@SuppressWarnings("unchecked")

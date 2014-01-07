@@ -19,7 +19,7 @@
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.orm-3.1.0.RELEASE.jar" sourcepath="E:/android/java_framework/src_spring/v_3.1.0"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.oxm-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.test-3.1.0.RELEASE.jar"/>
-	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.transaction-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.transaction-3.1.0.RELEASE.jar" sourcepath="E:/android/java_framework/src_spring/v_3.1.0/org.springframework.transaction-sources-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.web-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.web.portlet-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/org.springframework.web.servlet-3.1.0.RELEASE.jar"/>
@@ -34,5 +34,37 @@
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/aop/com.springsource.org.aopalliance-1.0.0.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/aspectjweaver/aspectjweaver.jar"/>
 	<classpathentry kind="lib" path="E:/android/java_framework/lib_spring/v_3.1.0/cglib/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_xapool/xapool-1.5.0.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/avalon-framework.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/carol-iiop-delegate.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/carol-interceptors.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/commons-cli.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/commons-collections.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/commons-logging-api.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/geronimo-corba_3.0_spec.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/geronimo-jms_1.1_spec.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/howl.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/irmi.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jacorb.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jacorb-idl.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jakarta-regexp.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jcup.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/joram-client.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/joram-mom.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/joram-shared.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jotm.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jotm_iiop_stubs.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jotm_jrmp_stubs.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jotm-carol.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jotm-client.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jotm-core.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jotm-datasource.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jotm-interceptor-jrmp-2.2.1.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jotm-jms.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/jotm-standalone.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/logkit.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/monolog.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/ow2-connector-1.5-spec.jar"/>
+	<classpathentry kind="lib" path="E:/android/java_framework/lib_jotm/ow2-jta-1.1-spec.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

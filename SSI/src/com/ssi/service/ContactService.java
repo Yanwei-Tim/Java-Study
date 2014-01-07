@@ -17,7 +17,7 @@ public interface ContactService {
 	public  List<Map> selectAll() throws Exception;
 	public int insert(Contact contact) throws Exception;
 	
-	public int testMultiTransaction(Contact contact) throws Exception;
+	public int transMultiDatasource(Contact contact) throws Exception;
 		
 	public int transInsertUpdate(Contact contact) throws Exception;
 }

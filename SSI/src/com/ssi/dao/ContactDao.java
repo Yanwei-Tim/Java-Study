@@ -37,6 +37,7 @@ public class ContactDao extends SqlMapClientUtil {
 		return sqlMapClient.queryForList("Contact.getAll");
 	}
 	
+	// jdbc 事务实现
 	public int testMultiTransaction(Contact contact) throws Exception{
 		int retId = 0;
 		Connection conn2 = sqlMapClient2.getDataSource().getConnection();
@@ -65,5 +66,18 @@ public class ContactDao extends SqlMapClientUtil {
 			conn2.setAutoCommit(flag2);
 		}
 		return retId;
+	}
+	
+	public int syncInsert(Contact contact) throws Exception {
+		int lastId = (int) sqlMapClient.insert("Contact.insert", contact);
+		System.out.println("---------insert success return:---------" +  lastId);
+		
+		Contact obj = new Contact();
+		obj.setEmail(null);
+		obj.setName(contact.getName());
+		obj.setPhone(contact.getPhone());
+		
+		lastId = (int) sqlMapClient2.insert("Contact.insert", obj);
+		return lastId;
 	}
 }

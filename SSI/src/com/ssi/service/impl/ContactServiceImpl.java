@@ -39,20 +39,22 @@ public class ContactServiceImpl implements ContactService  {
 
 	@Override
 	public List<Map> selectAll() throws Exception {
-		// TODO Auto-generated method stub
 		return contactDao.selectAll();
 	}
 
 	@Override
-	public int testMultiTransaction(Contact contact) throws Exception {
-		// TODO Auto-generated method stub
-		return contactDao.testMultiTransaction(contact);
+	// 测试多数据源事务
+	public int transMultiDatasource(Contact contact) throws Exception {
+		//return contactDao.testMultiTransaction(contact);
+		return contactDao.syncInsert(contact);
 	}
 
 	@Override
+	// 测试单数据源事务
 	public int transInsertUpdate(Contact contact) throws Exception {
 		int lastId = 0;
 		lastId = contactDao.insert(contact);
+		System.out.println("---------insert success return:" +  lastId);
 		Contact obj = new Contact();
 		obj.setEmail(null);
 		obj.setName(contact.getName());
