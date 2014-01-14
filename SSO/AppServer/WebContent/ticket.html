@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登陆</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-size: 12px;
+	font-family: Times New Roman, Times, serif;
+}
+.style1 {
+	font-size: 24px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+<body>
+	<form name="login" method="post" action="/AppServer/LoginServlet">
+  <div align="center" class="style1">
+    <p>票据登陆 </p>
+    <table width="800" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="right">用户名：</div></td>
+        <td><input name="userid" type="text" maxlength="20"></td>
+      </tr>
+      <tr>
+        <td><div align="right">票据：</div></td>
+        <td><input name="ticket" type="password" id="ticket" maxlength="20"></td>
+      </tr>
+      <tr>
+        <td><div align="right">
+          <input type="submit" name="Submit" value="提交">
+        </div></td>
+        <td><input type="reset" name="reset" value="重置"></td>
+      </tr>
+       <tr>
+        <td colspan="2"><div align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="login.html">密码登陆</a></div></td>
+      </tr>
+    </table>
+    <p>&nbsp; </p>
+  </div>
+</form>
+</body>
+</html>
