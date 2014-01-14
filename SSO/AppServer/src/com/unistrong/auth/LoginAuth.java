@@ -18,6 +18,9 @@ public class LoginAuth {
 	public static final String AUTH_PARAM_DATA = "authdata";
 	public static final String AUTH_PARAM_MESSAGE = "authmsg";
 	
+	private static final int CONNECT_TIMEOUT = 6000;
+	private static final int READ_TIMEOUT = 3000;
+	
 	
 	 /**
      * 用户名/密码认证
@@ -31,7 +34,7 @@ public class LoginAuth {
      */
 	public static Result authByPassword(String uname, String password) throws UnsupportedEncodingException, HttpRequestException{
 		String url = String.format("%s?%s=%s&%s=%s", AUTH_URL_PASSWORD, AUTH_PARAM_UNAME, uname, AUTH_PARAM_PASSWORD, password);
-		HttpRequest request = HttpRequest .get(url);
+		HttpRequest request = HttpRequest .get(url).connectTimeout(CONNECT_TIMEOUT).readTimeout(READ_TIMEOUT);
 		if (request.code() != HttpURLConnection.HTTP_OK){
 			return new Result(-1, "服务器异常");
 		}
@@ -54,7 +57,7 @@ public class LoginAuth {
      */
 	public static Result authByTicket(String uname, String ticket) throws UnsupportedEncodingException, HttpRequestException{
 		String url = String.format("%s?%s=%s&%s=%s", AUTH_URL_TICKET, AUTH_PARAM_UNAME, uname, AUTH_PARAM_TICKET, ticket);
-		HttpRequest request = HttpRequest .get(url);
+		HttpRequest request = HttpRequest .get(url).connectTimeout(CONNECT_TIMEOUT).readTimeout(READ_TIMEOUT);
 		if (request.code() != HttpURLConnection.HTTP_OK){
 			return new Result(-1, "服务器异常");
 		}
