@@ -15,7 +15,8 @@
 		<web-resource-collection>
 			<web-resource-name>AppServer</web-resource-name>
 			<!-- 将 URL 映射设为 /* ，整个应用都要求是 HTTPS 访问,访问http时会自动重定向302到https -->
-			<url-pattern>/*</url-pattern>
+			<url-pattern>/login.html</url-pattern>
+			<url-pattern>/ticket.html</url-pattern>
 		</web-resource-collection>
 		<user-data-constraint>
 			<!-- 你希望关闭 SSL ，只需要将 CONFIDENTIAL 改为 NONE 即可 -->
