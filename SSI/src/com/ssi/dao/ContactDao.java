@@ -68,6 +68,8 @@ public class ContactDao extends SqlMapClientUtil {
 		return retId;
 	}
 	
+	// jotm事务实现
+	/*
 	public int syncInsert(Contact contact) throws Exception {
 		int lastId = (int) sqlMapClient.insert("Contact.insert", contact);
 		System.out.println("---------insert success return:---------" +  lastId);
@@ -80,4 +82,10 @@ public class ContactDao extends SqlMapClientUtil {
 		lastId = (int) sqlMapClient2.insert("Contact.insert", obj);
 		return lastId;
 	}
+	 */
+	
+	public int syncInsert(Contact contact) throws Exception {
+		return (int) sqlMapClient.insert("Contact.insert", contact);
+	}
+
 }

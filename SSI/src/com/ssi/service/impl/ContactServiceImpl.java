@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.ssi.bean.Contact;
 import com.ssi.service.ContactService;
 import com.ssi.dao.ContactDao;
+import com.ssi.dao.ContactDao2;
 
 
 /**
@@ -24,6 +25,9 @@ public class ContactServiceImpl implements ContactService  {
 	
 	@Autowired
 	ContactDao contactDao;
+	
+	@Autowired
+	ContactDao2 contactDao2;
 	
 	@Override
 	public Map selectById(int id) throws Exception {
@@ -43,10 +47,18 @@ public class ContactServiceImpl implements ContactService  {
 	}
 
 	@Override
-	// 测试多数据源事务
+	// 测试多数据源事务 jtom
 	public int transMultiDatasource(Contact contact) throws Exception {
 		//return contactDao.testMultiTransaction(contact);
-		return contactDao.syncInsert(contact);
+		int lastId =  contactDao.syncInsert(contact);
+		
+		Contact obj = new Contact();
+		obj.setEmail(null);	// 字段赋值null以制造异常
+		obj.setName(contact.getName());
+		obj.setPhone(contact.getPhone());
+		lastId = contactDao2.syncInsert(/*contact*/obj);
+		
+		return lastId;
 	}
 
 	@Override
