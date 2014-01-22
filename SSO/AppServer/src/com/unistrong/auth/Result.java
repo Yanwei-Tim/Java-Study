@@ -49,8 +49,8 @@ public class Result implements Serializable {
 		this.message = message;
 	}
 	
-	public String toString(){
-		return String.format("code=%d;data=%s;msg=%s", this.code,this.data, this.message);
+	public String toProtocolString(){
+		return String.format("code=%d\r\ndata=%s\r\nmsg=%s", this.code,this.data, this.message);
 	}
 	
 }

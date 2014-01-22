@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/plain; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.print(result.toString());
+		out.print(result.toProtocolString());
 		out.flush();
 		out.close();
 	}
