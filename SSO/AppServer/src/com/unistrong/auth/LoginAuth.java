@@ -32,18 +32,22 @@ public class LoginAuth {
 	 * @throws HttpRequestException 
 	 * @throws UnsupportedEncodingException 
      */
-	public static Result authByPassword(String uname, String password) throws UnsupportedEncodingException, HttpRequestException{
-		String url = String.format("%s?%s=%s&%s=%s", AUTH_URL_PASSWORD, AUTH_PARAM_UNAME, uname, AUTH_PARAM_PASSWORD, password);
-		HttpRequest request = HttpRequest .get(url).connectTimeout(CONNECT_TIMEOUT).readTimeout(READ_TIMEOUT);
-		if (request.code() != HttpURLConnection.HTTP_OK){
+	public static Result authByPassword(String uname, String password)
+			throws UnsupportedEncodingException, HttpRequestException {
+		String postData = String.format("%s=%s&%s=%s", AUTH_PARAM_UNAME, uname,
+				AUTH_PARAM_PASSWORD, password);
+		HttpRequest request = HttpRequest.post(AUTH_URL_PASSWORD).send(postData)
+				.connectTimeout(CONNECT_TIMEOUT)
+				.readTimeout(READ_TIMEOUT);
+		if (request.code() != HttpURLConnection.HTTP_OK) {
 			return new Result(-1, "服务器异常");
 		}
-		
+
 		int code = Integer.parseInt(request.header(AUTH_PARAM_CODE));
 		String data = HttpCodec.decodeHttp(request.header(AUTH_PARAM_DATA));
 		String msg = HttpCodec.decodeHttp(request.header(AUTH_PARAM_MESSAGE));
 		return new Result(code, data, msg);
-	} 
+	}
 	
 	 /**
      * 用户名/ticket认证
