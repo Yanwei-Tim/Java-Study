@@ -25,4 +25,25 @@ public class UserDao {
 		}
 		return ret;
 	}
+	
+	public boolean updateTicket(String uname, String ticket){
+		boolean ret = false;
+		String strSql = "UPDATE user_base SET ticket=?, ticket_time=? WHERE username=?";
+		DBConnector connector = new DBConnector();
+		try {
+			PreparedStatement pstmt = connector.getPstmt(strSql);
+			pstmt.setString(1, ticket);
+			java.util.Date utilDate = new java.util.Date();
+		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			pstmt.setDate(2, sqlDate);
+			pstmt.setString(3, uname);
+			ret = (pstmt.executeUpdate()>0);
+		} catch (SQLException e) {
+			ret = false;
+			e.printStackTrace();
+		}finally {
+			connector.closeAll();
+		}
+		return ret;
+	}
 }

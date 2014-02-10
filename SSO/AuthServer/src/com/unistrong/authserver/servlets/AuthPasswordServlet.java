@@ -47,8 +47,8 @@ public class AuthPasswordServlet extends HttpServlet {
 			response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(0));
 			String ticket = HttpCodec.encodeHttp(RandomUtils.generateToken(userid));
 			// 写入数据库
+			dao.updateTicket(userid, ticket);
 			
-
 			response.setHeader(Constants.AUTH_PARAM_DATA, ticket);
 			response.setHeader(Constants.AUTH_PARAM_MESSAGE, HttpCodec.encodeHttp("登陆成功"));
 		}else{
