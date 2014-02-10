@@ -1,15 +1,14 @@
-package com.unistrong.servlets;
+package com.unistrong.authserver.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.unistrong.common.*;
+
+import com.unistrong.authserver.common.*;
+import com.unistrong.authserver.db.UserDao;
 
 //import net.sf.json.JSONObject;
 
@@ -38,7 +37,7 @@ public class AuthPasswordServlet extends HttpServlet {
 		
 		response.setCharacterEncoding("utf-8");   
 		response.setContentType("text/plain; charset=utf-8");
-		if (userid.equals("admin") && password.equals("123456")){
+		if (new UserDao().checkLogin(userid, RandomUtils.MD5(password))){
 			response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(0));
 			response.setHeader(Constants.AUTH_PARAM_DATA, HttpCodec.encodeHttp(RandomUtils.generateToken(userid)));
 			response.setHeader(Constants.AUTH_PARAM_MESSAGE, HttpCodec.encodeHttp("µÇÂ½³É¹¦"));

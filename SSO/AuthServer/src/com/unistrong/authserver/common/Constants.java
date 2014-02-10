@@ -1,4 +1,4 @@
-package com.unistrong.common;
+package com.unistrong.authserver.common;
 
 public interface Constants {
 	public static final String AUTH_PARAM_UNAME = "userid";

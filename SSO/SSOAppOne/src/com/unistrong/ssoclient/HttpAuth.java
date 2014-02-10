@@ -3,7 +3,6 @@ package com.unistrong.ssoclient;
 import android.annotation.SuppressLint;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;

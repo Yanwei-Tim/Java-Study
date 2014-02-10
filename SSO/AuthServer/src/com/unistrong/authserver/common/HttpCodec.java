@@ -1,4 +1,4 @@
-package com.unistrong.common;
+package com.unistrong.authserver.common;
 
 import java.io.UnsupportedEncodingException;
 
