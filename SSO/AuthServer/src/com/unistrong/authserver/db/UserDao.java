@@ -6,21 +6,23 @@ import java.sql.SQLException;
 
 public class UserDao {
 	public boolean checkLogin(String uname, String password){
-		boolean rst = false;
+		boolean ret = false;
 		String strSql = "select 1 from user_base where username=? and password=?";
+		DBConnector connector = new DBConnector();
 		try {
-			PreparedStatement pstmt = Dbconn.getPstmt(strSql);
+			PreparedStatement pstmt = connector.getPstmt(strSql);
 			pstmt.setString(1, uname);
 			pstmt.setString(2, password);
-			ResultSet rs = Dbconn.getRs();
+			ResultSet rs = connector.getRs();
 			if (rs.next()) {
-				rst = true;
+				ret = true;
 			}
 		} catch (SQLException e) {
+			ret = false;
 			e.printStackTrace();
-		} finally {
-			Dbconn.closeAll();
+		}finally {
+			connector.closeAll();
 		}
-		return rst;
+		return ret;
 	}
 }

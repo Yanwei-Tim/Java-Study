@@ -2,12 +2,15 @@ package com.unistrong.authserver.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.unistrong.authserver.common.*;
+import com.unistrong.authserver.db.DBConnector;
 import com.unistrong.authserver.db.UserDao;
 
 //import net.sf.json.JSONObject;
@@ -37,9 +40,16 @@ public class AuthPasswordServlet extends HttpServlet {
 		
 		response.setCharacterEncoding("utf-8");   
 		response.setContentType("text/plain; charset=utf-8");
-		if (new UserDao().checkLogin(userid, RandomUtils.MD5(password))){
+		
+		UserDao dao = new UserDao();
+		boolean ret =  dao.checkLogin(userid,  RandomUtils.MD5(password));
+		if (ret){
 			response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(0));
-			response.setHeader(Constants.AUTH_PARAM_DATA, HttpCodec.encodeHttp(RandomUtils.generateToken(userid)));
+			String ticket = HttpCodec.encodeHttp(RandomUtils.generateToken(userid));
+			// 写入数据库
+			
+
+			response.setHeader(Constants.AUTH_PARAM_DATA, ticket);
 			response.setHeader(Constants.AUTH_PARAM_MESSAGE, HttpCodec.encodeHttp("登陆成功"));
 		}else{
 			response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(-1));

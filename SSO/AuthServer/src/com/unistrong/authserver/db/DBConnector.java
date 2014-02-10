@@ -10,16 +10,12 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class Dbconn {
+public class DBConnector {
+	private Connection conn = null;
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
 	
-	private static Connection conn = null;
-
-	private static PreparedStatement pstmt = null;
-
-	private static ResultSet rs = null;
-	
-
-	public static Connection getConn(){
+	public Connection getConn(){
 		Context ctx = null;   //JNDI
 		DataSource ds = null;
 		try {
@@ -31,11 +27,11 @@ public class Dbconn {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}	
+		}
 		return conn ;
 	 }
 	
-	public static PreparedStatement getPstmt(String sqlStr) throws SQLException{
+	public PreparedStatement getPstmt(String sqlStr) throws SQLException{
 		if(conn==null || conn.isClosed()){
 			conn = getConn();
 		}
@@ -43,12 +39,12 @@ public class Dbconn {
 		return pstmt;
 	}
 	
-	public static ResultSet getRs() throws SQLException{
+	public ResultSet getRs() throws SQLException{
 		rs = pstmt.executeQuery();
 		return rs ;
 	}
 	
-	public static void closeAll() {
+	public void closeAll() {
 		try {
 			if (rs != null)
 				rs.close();

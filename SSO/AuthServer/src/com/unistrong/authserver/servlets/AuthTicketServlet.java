@@ -36,7 +36,7 @@ public class AuthTicketServlet extends HttpServlet {
 		String userid = request.getParameter(Constants.AUTH_PARAM_UNAME);
 		String ticket = request.getParameter(Constants.AUTH_PARAM_TICKET);
 		
-		response.setCharacterEncoding("utf-8");   
+		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/plain; charset=utf-8");
 		if (userid.equals("admin") && ticket.equals("123456")){
 			response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(0));

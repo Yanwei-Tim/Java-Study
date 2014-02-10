@@ -30,14 +30,8 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter(LoginAuth.AUTH_PARAM_UNAME);
-		String pwd = request.getParameter(LoginAuth.AUTH_PARAM_PASSWORD);
-		Result result = null;
-		if (pwd!=null){
-			result = LoginAuth.authByPassword(uname, pwd);
-		}else{
-			String ticket = request.getParameter(LoginAuth.AUTH_PARAM_TICKET);
-			result =  LoginAuth.authByTicket(uname, ticket);
-		}
+		String ticket = request.getParameter(LoginAuth.AUTH_PARAM_TICKET);
+		Result result = LoginAuth.authByTicket(uname, ticket);
 		
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/plain; charset=utf-8");
