@@ -45,11 +45,11 @@ public class AuthPasswordServlet extends HttpServlet {
 		boolean ret =  dao.checkLogin(userid,  RandomUtils.MD5(password));
 		if (ret){
 			response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(0));
-			String ticket = HttpCodec.encodeHttp(RandomUtils.generateToken(userid));
+			String ticket = RandomUtils.generateToken(userid);
 			// 写入数据库
 			dao.updateTicket(userid, ticket);
 			
-			response.setHeader(Constants.AUTH_PARAM_DATA, ticket);
+			response.setHeader(Constants.AUTH_PARAM_DATA,  HttpCodec.encodeHttp(ticket));
 			response.setHeader(Constants.AUTH_PARAM_MESSAGE, HttpCodec.encodeHttp("登陆成功"));
 		}else{
 			response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(-1));

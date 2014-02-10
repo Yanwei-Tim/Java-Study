@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unistrong.authserver.common.Constants;
 import com.unistrong.authserver.common.HttpCodec;
+import com.unistrong.authserver.common.RandomUtils;
+import com.unistrong.authserver.db.UserDao;
 
 //import net.sf.json.JSONObject;
 
@@ -38,9 +40,19 @@ public class AuthTicketServlet extends HttpServlet {
 		
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/plain; charset=utf-8");
-		if (userid.equals("admin") && ticket.equals("123456")){
-			response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(0));
-			response.setHeader(Constants.AUTH_PARAM_MESSAGE, HttpCodec.encodeHttp("票据验证成功"));
+		
+		UserDao dao = new UserDao();
+		java.util.Date ticketTime = dao.checkTicket(userid, ticket);
+		if (ticketTime != null){
+			java.util.Date expireTime = new java.util.Date(ticketTime.getTime() +604800000/* 7*24*3600*1000*/);
+			java.util.Date curTime = new java.util.Date();
+			if (curTime.after(expireTime)){
+				response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(-1));
+				response.setHeader(Constants.AUTH_PARAM_MESSAGE, HttpCodec.encodeHttp("票据已过期"));
+			}else{
+				response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(0));
+				response.setHeader(Constants.AUTH_PARAM_MESSAGE, HttpCodec.encodeHttp("票据验证成功"));
+			}
 		}else{
 			response.setHeader(Constants.AUTH_PARAM_CODE, String.valueOf(-1));
 			response.setHeader(Constants.AUTH_PARAM_MESSAGE,  HttpCodec.encodeHttp("票据错误"));
