@@ -79,36 +79,9 @@ public class MainActivity extends Activity {
 	public void testHttps(View v) {
 		new Thread(){
 			public void run() {
-				/*
-				HttpClient httpClient = HttpClientHelper.getHttpClient();
-				HttpPost httpPost = new HttpPost("https://cas.min.com/AppServer/LoginServlet");
-				*/
 				try {
-					
-					Result  result = HttpAuth.authPassword("admin", "123456", "12354656");
+					Result  result = HttpAuth.authPassword("https://auth.unistrong.com/AuthPassword", "compass1", "111111", "12354656");
 					System.out.println("testHttps result: " + result.toString());
-					/*
-					StringEntity formEntity = new StringEntity("userid=admin&password=123456");
-					formEntity.setContentType("application/x-www-form-urlencoded");
-					httpPost.setEntity(formEntity);
-					HttpResponse response = httpClient.execute(httpPost);  
-					
-				     HttpEntity rspEntity = response.getEntity();
-				     System.out.println("----------------------------------------");   
-				     System.out.println(response.getStatusLine());   
-				    if (rspEntity != null) {
-				       System.out.println("Response content length: " + rspEntity.getContentLength());   
-				     }   
-				    // ÏÔÊ¾½á¹û   
-				     BufferedReader reader = new BufferedReader(new InputStreamReader(rspEntity.getContent(), "UTF-8"));   
-				     String line = null;   
-				    while ((line = reader.readLine()) != null) {
-				       System.out.println(line);   
-				     }   
-				    if (rspEntity != null) {   
-				    	rspEntity.consumeContent();   
-				     }
-				     */
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}catch ( ClientProtocolException e) {
