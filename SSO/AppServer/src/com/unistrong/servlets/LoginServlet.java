@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter(LoginAuth.AUTH_PARAM_UNAME);
 		String ticket = request.getParameter(LoginAuth.AUTH_PARAM_TICKET);
-		Result result = LoginAuth.authByTicket(uname, ticket);
+		Result result = LoginAuth.authByTicket("http://cas.min.com:8080/AuthTicket", uname, ticket);
 		
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/plain; charset=utf-8");

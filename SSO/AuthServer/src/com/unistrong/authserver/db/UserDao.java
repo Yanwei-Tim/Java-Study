@@ -3,7 +3,6 @@ package com.unistrong.authserver.db;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 public class UserDao {
 	public boolean checkLogin(String uname, String password){
