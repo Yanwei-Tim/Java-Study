@@ -98,16 +98,9 @@
 				<!-- Access log processes all example. Documentation at: /docs/config/valve.html -->
 				<!-- <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" 
 					prefix="localhost_access_log." suffix=".txt" pattern="common" resolveHosts="false"/> -->
-
-
-				
-
-				
-
-				
-			
-			<Context docBase="AppServer" path="/AppServer" reloadable="true" source="org.eclipse.jst.jee.server:AppServer"/>
-			<Context docBase="AuthServer" path="/" reloadable="true" source="org.eclipse.jst.jee.server:AuthServer"/></Host>
+	
+		<Context docBase="AuthAPI" path="/AuthAPI" reloadable="true" source="org.eclipse.jst.jee.server:AuthAPI"/>
+		<Context docBase="AuthServer" path="/" reloadable="true" source="org.eclipse.jst.jee.server:AuthServer"/></Host>		
 		</Engine>
 	</Service>
 </Server>
