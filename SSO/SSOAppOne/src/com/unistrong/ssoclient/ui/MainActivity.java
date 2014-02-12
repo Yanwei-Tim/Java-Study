@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
 		new Thread(){
 			public void run() {
 				try {
-					Result  result = HttpAuth.authPassword("https://auth.unistrong.com/AuthPassword", "compass1", "111111", "12354656");
+					Result  result = HttpAuth.authPassword("https://auth.unistrong.com/AuthPassword", "com&pass1", "111111", "12354656");
 					System.out.println("testHttps result: " + result.toString());
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();

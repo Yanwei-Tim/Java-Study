@@ -31,7 +31,8 @@ public class HttpAuth {
 	public static Result authPassword(String authURL, String username, String password, String deviceID) throws ClientProtocolException, IOException{
 		HttpClient httpClient = HttpClientHelper.getHttpClient();
 		HttpPost httpPost = new HttpPost(authURL);
-		StringEntity formEntity = new StringEntity(String.format("userid=%s&password=%s&deviceid=%s", username, password,deviceID));
+		StringEntity formEntity = new StringEntity(String.format("userid=%s&password=%s&deviceid=%s", 
+				HttpCodec.encodeHttp(username), HttpCodec.encodeHttp(password),HttpCodec.encodeHttp(deviceID)));
 		formEntity.setContentType("application/x-www-form-urlencoded");
 		httpPost.setEntity(formEntity);
 		HttpResponse response = httpClient.execute(httpPost);  
