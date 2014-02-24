@@ -6,7 +6,7 @@ webbuild)
 	svn update src
 	svn update conf
     svn update WebContent
-        ant init
+        ant -f /auth_server/source/build.xml init
 		
 	rm -rf /auth_server/WWW/*
 	cp -R /auth_server/source/WebContent/*  /auth_server/WWW
