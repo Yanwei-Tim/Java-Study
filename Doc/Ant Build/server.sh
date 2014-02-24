@@ -2,34 +2,27 @@
 
 case "$1" in
 webbuild)
-        cd /mygou/data/appstore/
+        cd /auth_server/source/
 	svn update src
 	svn update conf
-	svn update lib
-    svn update AppStore
+    svn update WebContent
         ant init
-	cp -R /mygou/data/appstore/online_conf/resource.properties /mygou/data/appstore/classes/resource.properties
-	cp -R /mygou/data/appstore/online_conf/application.properties /mygou/data/appstore/classes/application.properties
-	rm -rf /mygou/AppStore/WEB-INF/classes
-	rm -rf /mygou/AppStore/WEB-INF/lib
-        rm -rf /mygou/AppStore/static
-	rm -rf /mygou/AppStore/WEB-INF/pages
-	cp -R /mygou/data/appstore/classes /mygou/AppStore/WEB-INF/classes
-	cp -R /mygou/data/appstore/lib /mygou/AppStore/WEB-INF/lib
-	cp -R /mygou/data/appstore/AppStore/WEB-INF/pages /mygou/AppStore/WEB-INF/pages
-        cp -R /mygou/data/appstore/AppStore/static /mygou/AppStore/static
-	
+		
+	rm -rf /auth_server/WWW/*
+	cp -R /auth_server/source/WebContent/*  /auth_server/WWW
+	#这样拷贝会把WebContent子文件夹内的.svn拷贝过去？？？是个问题需要解决
 ;;
 
 webstart)
-        cd /mygou/tomcat1/bin
+        cd /auth_server/apache-tomcat-6.0.36/bin
         ./startup.sh
         tail -f ../logs/catalina.out
 ;;
 
 webstop)
-        cd /mygou/tomcat1/bin
+        cd /auth_server/apache-tomcat-6.0.36/bin
         ./shutdown.sh
+		tail -f ../logs/catalina.out
 ;;
 
 webrestart)
