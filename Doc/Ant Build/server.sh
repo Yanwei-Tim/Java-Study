@@ -26,9 +26,11 @@ webstop)
 ;;
 
 webrestart)
-	$0 webstop
+	cd /auth_server/apache-tomcat-6.0.36/bin
+    ./shutdown.sh
 	sleep 2
-	$0 webstart
+	./startup.sh
+    tail -f ../logs/catalina.out
 ;;
 
 *)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="auth_server" basedir=".">
+<project name="auth_server" basedir="/auth_server/source">
 
 	<property environment="linux64_jdk7" />
 	<property name="java_home" value="/mygou/jdk1.7.0_10" />
