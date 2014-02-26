@@ -20,3 +20,9 @@ http://omyyal.iteye.com/blog/1743306
 
 
 应该不是程序异常！！！！！！
+
+
+#网上说
+	<!-- Prevent memory leaks due to use of particular java/javax APIs -->
+	<Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+	把这个注释掉就不会报异常了。
