@@ -1,0 +1,22 @@
+2014-2-25 18:08:02 org.apache.coyote.http11.Http11Protocol pause
+信息: Pausing Coyote HTTP/1.1 on http-8080
+2014-2-25 18:08:02 org.apache.coyote.http11.Http11Protocol pause
+信息: Pausing Coyote HTTP/1.1 on http-443
+2014-2-25 18:08:03 org.apache.catalina.core.StandardService stop
+信息: Stopping service Catalina
+
+18:08自动关闭了。但不确定是人为原因还是异常导致。
+自己测试也发现，shutdown.sh tomcat的时候，会出现了异常，但我估计是没有多大影响的。
+异常：
+A web application registered the JBDC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered. 
+
+http://omyyal.iteye.com/blog/1743306
+
+一个web应用程序注册的JBDC驱动程序[com.mysql.jdbc.Driver]，但Web应用程序时停止时未能注销。为了防止内存泄漏，JDBC驱动程序已被强行注册。 
+解决办法 ： 
+在服务器保持运行的状态中，redeploy这个项目， 就出现了异常， 
+
+要stop之后 再redeploy，就可以了【先将tomcat kill掉，等进程完全死了，再重新启动】 
+
+
+应该不是程序异常！！！！！！
