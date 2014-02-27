@@ -1,0 +1,44 @@
+package com.unistrong.authserver.test;
+
+import java.util.Collection;
+
+import javax.management.monitor.StringMonitor;
+
+import net.sf.ezmorph.object.DateMorpher;
+import net.sf.ezmorph.primitive.ByteMorpher;
+import net.sf.ezmorph.primitive.DoubleMorpher;
+import net.sf.ezmorph.primitive.LongMorpher;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.util.JSONUtils;
+
+public class TestJson {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String jsonStr = "{\"code\":0,\"data\":[{\"org_name\":\"行政部\",\"modify_date\":\"2014-02-14 15:05:23.0\"}]}";
+		JSONObject jsonObj = JSONObject.fromObject(jsonStr);
+		JSONArray jsonArray = (JSONArray) jsonObj.get("data");
+		// 注册日期处理Morpher
+		// 可以联想到应该也有下面的Morpher
+//		LongMorpher
+//		DoubleMorpher
+//		ByteMorpher
+//		StringMonitor
+		JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[] {"yyyy-MM-dd HH:mm:ss"}) );
+		Collection<PP> collection1 = (Collection<PP>) JSONArray.toCollection(jsonArray, PP.class);
+		for (PP pp : collection1) {
+			System.out.println(pp.getModify_date().getTime());
+		}
+		
+		// 反注册日期处理Morpher（JSONUtils.getMorpherRegistry()是个static单例的，会影响到所有的json处理。所以有必要deregisterMorpher）
+		JSONUtils.getMorpherRegistry().deregisterMorpher(new DateMorpher(new String[] {"yyyy-MM-dd HH:mm:ss"}));
+		Collection<PP> collection2 = (Collection<PP>) JSONArray.toCollection(jsonArray, PP.class);
+		for (PP pp : collection2) {
+			System.out.println(pp.getModify_date().getTime());
+		}
+	}
+
+}
