@@ -44,6 +44,7 @@ public class Receiver {
                 }
                 Thread.sleep(1000);
 			}
+            session.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

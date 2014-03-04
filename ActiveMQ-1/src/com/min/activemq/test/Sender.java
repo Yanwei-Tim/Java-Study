@@ -47,6 +47,7 @@ public class Sender {
             // 构造消息，此处写死，项目就是参数，或者方法获取
             sendMessage(session, producer);
             //session.commit();
+            session.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
