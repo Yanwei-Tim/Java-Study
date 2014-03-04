@@ -38,7 +38,7 @@ public class Receiver {
             consumer = session.createConsumer(destination);
             while (true) {
                 //设置接收者接收消息的时间，为了便于测试，这里谁定为100s
-                TextMessage message = (TextMessage) consumer.receive(800000);
+                TextMessage message = (TextMessage) consumer.receive(100000);
                 if (null != message) {
                     System.out.println("收到消息" + message.getText());
                 } else {
