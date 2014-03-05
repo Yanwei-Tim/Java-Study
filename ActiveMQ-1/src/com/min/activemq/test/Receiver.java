@@ -22,8 +22,9 @@ public class Receiver {
         // 消费者，消息接收者
         MessageConsumer consumer;
         connectionFactory = new ActiveMQConnectionFactory(
-                ActiveMQConnection.DEFAULT_USER,
-                ActiveMQConnection.DEFAULT_PASSWORD,
+                //ActiveMQConnection.DEFAULT_USER,
+               // ActiveMQConnection.DEFAULT_PASSWORD,
+        		"system","manager",
                 "tcp://localhost:61616");
         try {
             // 构造从工厂得到连接对象

@@ -11,7 +11,7 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class Sender {
-    private static final int SEND_NUMBER = 15;
+    private static final int SEND_NUMBER = 5;
 
     public static void main(String[] args) {
         // ConnectionFactory ：连接工厂，JMS 用它创建连接
@@ -27,8 +27,9 @@ public class Sender {
         // TextMessage message;
         // 构造ConnectionFactory实例对象，此处采用ActiveMq的实现jar
         connectionFactory = new ActiveMQConnectionFactory(
-                ActiveMQConnection.DEFAULT_USER,
-                ActiveMQConnection.DEFAULT_PASSWORD,
+                //ActiveMQConnection.DEFAULT_USER,
+               // ActiveMQConnection.DEFAULT_PASSWORD,
+        		"system","manager",
                 "tcp://localhost:61616");
         try {
             // 构造从工厂得到连接对象
