@@ -24,15 +24,7 @@
     <!-- Allows us to use system properties as variables in this configuration file -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
-		<list>
             <value>file:${activemq.conf}/credentials.properties</value>
-			<!--   
-                    1、增加了加载数据库的属性文件，目录为activemq目录下的conf文件中，  
-                    此文件定义了有关数据连接的信息，conf目录下无jdbc.properties文件，需要手动创建,  
-                    也可以不使用此属性文件，将数据库信息直接写到activemq.xml中  
-            -->  
-            <value>file:${activemq.conf}/jdbc.properties</value>
-		</list>
         </property>
     </bean>
 
@@ -86,19 +78,10 @@
 
             http://activemq.apache.org/persistence.html
         -->
-		<!--  kahadb 持久化
         <persistenceAdapter>
             <kahaDB directory="${activemq.data}/kahadb"/>
         </persistenceAdapter>
-		-->
-		
-		<!--  
-            2、增加此节点的配置，此种方式直接操作数据库 
-         -->  
-		<persistenceAdapter>
-             <jdbcPersistenceAdapter dataSource="#mySql"/>  
-        </persistenceAdapter>
-		
+
 
           <!--
             The systemUsage controls the maximum amount of space the broker will
@@ -139,19 +122,42 @@
             <bean xmlns="http://www.springframework.org/schema/beans" class="org.apache.activemq.hooks.SpringContextHook" />
         </shutdownHooks>
 
+		<plugins> 
+		 <simpleAuthenticationPlugin> 
+			<!--该部分是配置发送或接受的用户名和密码,以及所处的用户组-->
+			<users> 
+			  <authenticationUser username="system" password="manager" groups="users,admins"/> 
+			  <authenticationUser username="user" password="password" groups="users"/> 
+			  <authenticationUser username="guest" password="password" groups="guests"/> 
+			</users> 
+		</simpleAuthenticationPlugin>
+		   <!--  use JAAS to authenticate using the login.config file on the classpath to configure JAAS -->
+			<!--以下采用的是JAAS的管理机制来配置各种角色的权限-->
+		 <jaasAuthenticationPlugin configuration="activemq" />
+		 <!--  lets configure a destination based authorization mechanism -->
+		 <authorizationPlugin>
+		   <map>
+				<authorizationMap>
+					<authorizationEntries>
+						<!-->表示通配符,例如USERS.>表示以USERS.开头的主题,>表示所有主题,read表示读的权限,write表示写的权限，admin表示角色组-->
+						  <authorizationEntry queue=">" read="admins" write="admins" admin="admins" />
+						  <authorizationEntry queue="USERS.>" read="users" write="users" admin="users" />
+						  <authorizationEntry queue="GUEST.>" read="guests" write="guests,users" admin="guests,users" />
+						  <authorizationEntry topic=">" read="admins,users" write="admins" admin="admins" />
+						  <authorizationEntry topic="USERS.>" read="users" write="users" admin="users" />
+						  <authorizationEntry topic="GUEST.>" read="guests" write="guests,users" admin="guests,users" />
+						  <authorizationEntry topic="ActiveMQ.Advisory.>" read="guests,users" write="guests,users" admin="guests,users" />
+					</authorizationEntries>
+				 <!-- let's assign roles to temporary destinations. comment this entry if we don't want any roles assigned to temp destinations  -->
+				 <tempDestinationAuthorizationEntry>
+					  <tempDestinationAuthorizationEntry read="tempDestinationAdmins" write="tempDestinationAdmins" admin="tempDestinationAdmins" />
+				 </tempDestinationAuthorizationEntry>
+			</authorizationMap>
+		   </map>
+		 </authorizationPlugin>
+	   </plugins> 
     </broker>
 
-	
-	<!--  
-        3、增加关于数据库连接的配置，在增加此配置时，还需要将数据库驱动的jar包放到activemq安装目录下的lib目录中 
-    -->  
-    <bean id="mySql" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">  
-            <property name="driverClassName" value="${jdbc.driverClassName}" />  
-            <property name="url" value="${jdbc.url}" />  
-            <property name="username" value="${jdbc.username}" />  
-            <property name="password" value="${jdbc.password}" />  
-    </bean>  
-	
     <!--
         Enable web consoles, REST and Ajax APIs and demos
         The web consoles requires by default login, you can disable this in the jetty.xml file
