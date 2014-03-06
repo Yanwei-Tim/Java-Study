@@ -1,6 +1,4 @@
-package com.min.activemq.test;
-
-import java.io.Console;
+package com.min.activemq.mq;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
@@ -11,11 +9,9 @@ import javax.jms.MessageListener;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
-import javax.jms.TopicSession;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import com.min.activemq.mq.Constants;
 
 /**
  * 
@@ -119,7 +115,7 @@ public class Receiver extends Thread{
 			
 			// 构造从工厂得到连接对象
 			connection = connectionFactory.createConnection();
-			// 设置客户端唯一ID
+			// 设置客户端唯一ID，如果mq已存在将会报错
 			connection.setClientID( this.subscriberName);
 			// 启动
 			connection.start();
@@ -134,7 +130,6 @@ public class Receiver extends Thread{
             	destination = session.createQueue(Constants.MQ_QUEUE_NAME);
             	consumer = session.createConsumer(destination);
             }
-			
 			consumer.setMessageListener(this.messageListener);
 		} catch (Exception e) {
 			e.printStackTrace();

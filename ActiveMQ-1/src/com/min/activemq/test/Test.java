@@ -1,6 +1,7 @@
 package com.min.activemq.test;
 
 import com.min.activemq.mq.Constants;
+import com.min.activemq.mq.Receiver;
 
 /**
  * 程序的简单说明

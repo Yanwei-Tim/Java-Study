@@ -1,9 +1,6 @@
-package com.min.activemq.test;
-
-import java.io.Console;
+package com.min.activemq.mq;
 
 import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.MessageProducer;
@@ -11,7 +8,6 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import com.min.activemq.mq.Constants;
 
 public class Sender {
     private static final int SEND_NUMBER = 100;

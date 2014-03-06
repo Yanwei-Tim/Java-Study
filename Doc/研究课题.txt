@@ -1,0 +1,29 @@
+李祖玉(李祖玉) 15:40:07
+技术研究课题有以下：
+
+NoSQL数据库：
+1. MongoDB    2. Cassandra    3. Tokyo Cabinet/Tyrant
+
+HTTP加速器
+4. Varnish    5. Squid
+
+分布式缓存：
+6.memcached    7. terracotta
+
+开发语言类：
+8.Erlang   9.Python  10.PHP   11.Ruby  12.Groovy  Node.js(http://nodejs.org/ http://chat.nodejs.org/)
+
+消息中间件：
+13. ActiveMQ    14.RabbitMQ
+
+架构类：
+13.OSGI    14.Hadoop(Hive, ZooKeeper, HDFS), nodejs , radis
+
+搜索类：
+15. lucene  16.solr  17.Lucene  18.sphinx
+
+其它开源组件：
+19.工作流管理JBPM   20.规则引擎JBoss Rules   21. 高性能的网络框架MINA   22. 
+
+基本知识普及：
+21.多线程  22.NIO  23.concurrent    24.ANNOTATION   25.Reflection  26.jmx    27.Linux Sh
