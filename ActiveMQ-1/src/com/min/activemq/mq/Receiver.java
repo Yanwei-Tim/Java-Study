@@ -1,6 +1,5 @@
 package com.min.activemq.mq;
 
-import javax.jms.Connection;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -20,28 +19,13 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 * @E-mail:zhuifeng1017@gmail.com
 * @version 创建时间：2014-3-6 下午1:37:37
  */
-public class Receiver extends Thread{
-	 // ConnectionFactory ：连接工厂，JMS 用它创建连接
-	ActiveMQConnectionFactory connectionFactory;
-    // Connection ：JMS 客户端到JMS Provider 的连接
-    private Connection connection = null;
-    // Session： 一个发送或接收消息的线程
-    private Session session;
-    MessageConsumer consumer;
-    private boolean connected = false;
+public class Receiver extends Transceiver{
+	private MessageConsumer consumer;
     private  MessageListener messageListener;
-    private int mqType;
     private String subscriberName; // 订阅者名称
     
-    private String username;
-    private String password;
-    private String brokerURL;
-    
     public Receiver(String username, String password, String brokerURL, int mqType, String subscriberName){
-    	this.username = username;
-    	this.password = password;
-    	this.brokerURL = brokerURL;
-    	this.mqType = mqType;
+    	super(username, password, brokerURL, mqType);
     	this.subscriberName = subscriberName;
     	messageListener  = new MessageListener() {
     		@Override
@@ -65,23 +49,22 @@ public class Receiver extends Thread{
     	this.messageListener = messageListener;
     }
     
-    
-    
     /**
      * 启动接收消息
      */
-    public void startRecv(){
-    	if (!this.connected){
+    public void startUp(){
+    	if (!this.isStartUp){
     		//this.setDaemon(true);
-    		this.connected = true;
-    		super.start();
+    		Thread thread = new Thread(this);
+    		thread.start();
+    		this.isStartUp = true;
     	}
     }
     
     /**
      * 停止接收消息
      */
-    public void stopRecv(){
+    public void shutDown(){
     	try {
     		if (null !=consumer){
     			consumer.setMessageListener(null);
@@ -99,12 +82,13 @@ public class Receiver extends Thread{
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-    	this.connected = false;
+    	this.isStartUp = false;
     }
     
 	public void run() {
 		try {
-			 connectionFactory = new ActiveMQConnectionFactory(
+			// ConnectionFactory ：连接工厂，JMS 用它创建连接
+			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
 			// ActiveMQConnection.DEFAULT_USER,
 			// ActiveMQConnection.DEFAULT_PASSWORD,
 					this.username, this.password,
@@ -133,8 +117,9 @@ public class Receiver extends Thread{
 			consumer.setMessageListener(this.messageListener);
 		} catch (Exception e) {
 			e.printStackTrace();
-			this.stopRecv();// 出异常就停止接收消息并作清理
+			this.shutDown();// 出异常就停止接收消息并作清理
 		}
+		System.out.println("receiver connect thread exited");
 	}
 }
 

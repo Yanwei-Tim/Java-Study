@@ -21,7 +21,7 @@ public class Test {
 	 * @param args
 	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		int size = 1;
 		Receiver receivers[] = new Receiver[size];
 		for (int i = 0; i < size; i++) {
@@ -29,7 +29,7 @@ public class Test {
 					"tcp://192.168.108.13:61616",
 					Constants.MQ_TOPIC,
 					"subscriber1");
-			receivers[i].startRecv();
+			receivers[i].startUp();
 		}
 		
 		for (int i = 0; i < 100; i++) {
@@ -41,14 +41,10 @@ public class Test {
 		}
 		
 		for (int i = 0; i < size; i++) {
-			receivers[i].stopRecv();
+			receivers[i].shutDown();
 		}
 		
-		for (int i = 0; i < size; i++) {
-			receivers[i].join();
-		}
-		System.out.println("recv thread exited");
-		System.out.println("main thread exited");
+		System.out.println("Receiver main thread exited");
 	}
 
 }
