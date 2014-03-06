@@ -87,7 +87,7 @@ public class Sender extends Transceiver{
     }
     
     public void sendMessage(String text) throws Exception{
-       if (session != null){
+       if (this.isStartUp && session != null){
     	   TextMessage message = session.createTextMessage(text);
            producer.send(message);
            System.out.println("发送消息 : " + text);
