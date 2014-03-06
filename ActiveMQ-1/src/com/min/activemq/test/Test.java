@@ -26,15 +26,16 @@ public class Test {
 	 */
 	public static void main(String[] args) {
 		Receiver receivers[] = new Receiver[3];
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 1; i++) {
 			receivers[i] = new Receiver();
-			receivers[i].start();
+			receivers[i].startRecv();
 		}
 		
 		
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 100; i++) {
 			try {
-				receivers[i].join(); // 等待线程结束
+				//receivers[i].join(); // 等待线程结束
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
