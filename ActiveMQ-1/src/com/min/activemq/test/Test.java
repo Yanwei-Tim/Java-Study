@@ -23,23 +23,33 @@ public class Test {
 
 	/**
 	 * @param args
+	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) {
-		Receiver receivers[] = new Receiver[3];
-		for (int i = 0; i < 1; i++) {
+	public static void main(String[] args) throws InterruptedException {
+		int size = 1;
+		Receiver receivers[] = new Receiver[size];
+		for (int i = 0; i < size; i++) {
 			receivers[i] = new Receiver();
 			receivers[i].startRecv();
 		}
 		
 		
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			try {
-				//receivers[i].join(); // 等待线程结束
-				Thread.sleep(3000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		
+		for (int i = 0; i < size; i++) {
+			receivers[i].stopRecv();
+		}
+		
+		for (int i = 0; i < size; i++) {
+			receivers[i].join();
+		}
+		System.out.println("recv thread exited");
 		System.out.println("main thread exited");
 	}
 

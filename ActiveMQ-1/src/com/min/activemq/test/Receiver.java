@@ -7,9 +7,15 @@ import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
+/**
+ * 
+* 消息接收者，内部使用线程创建Connection
+* @author min.zhao
+* @E-mail:zhuifeng1017@gmail.com
+* @version 创建时间：2014-3-6 下午1:37:37
+ */
 public class Receiver extends Thread{
 	 // ConnectionFactory ：连接工厂，JMS 用它创建连接
 	ActiveMQConnectionFactory connectionFactory;
@@ -17,25 +23,64 @@ public class Receiver extends Thread{
     private Connection connection = null;
     // Session： 一个发送或接收消息的线程
     private Session session;
+    MessageConsumer consumer;
+    private boolean running = false;
+    private  MessageListener messageListener;
     
-    private boolean running =false;
-  
     public Receiver(){
+    	messageListener  = new MessageListener() {
+    		@Override
+    		public void onMessage(Message message) {
+    			if (null != message) {
+    				System.out.println(Thread.currentThread().getName() + "--收到消息" + message);
+    			}
+    		}
+    	};
     }
     
+    /**
+     * @param messageListener
+     */
+    public void setMessageListener(MessageListener messageListener){
+    	this.messageListener = messageListener;
+    }
+    
+    /**
+     * 启动接收消息
+     */
     public void startRecv(){
     	if (!this.running){
     		//this.setDaemon(true);
     		super.start();
+    		this.running = true;
     	}
     }
     
+    /**
+     * 停止接收消息
+     */
     public void stopRecv(){
+    	try {
+    		if (null !=consumer){
+    			consumer.setMessageListener(null);
+    			consumer.close();
+    			consumer = null;
+    		}
+			if (null != session) {
+				session.close();
+				session = null;
+			}
+			if (null != connection) {
+				connection.close();
+				connection = null;
+			}
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
     	this.running = false;
     }
     
 	public void run() {
-		this.running = true;
 		try {
 			 connectionFactory = new ActiveMQConnectionFactory(
 			// ActiveMQConnection.DEFAULT_USER,
@@ -52,45 +97,13 @@ public class Receiver extends Thread{
 			session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
 			// Destination ：消息的目的地;消息发送给谁.
 			Destination destination = session.createQueue("FirstQueue");
-			MessageConsumer consumer = session.createConsumer(destination);
+			consumer = session.createConsumer(destination);
 			consumer.setMessageListener(this.messageListener);
-			while (this.running) {
-				this.recvMessage(session, consumer);
-			} 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (null != session) {
-					session.close();
-				}
-				if (null != connection) {
-					connection.close();
-				}
-			} catch (Throwable ignore) {
-			}
+			this.stopRecv();// 出异常就停止接收消息并作清理
 		}
-		
-		this.running = false;
 	}
-	
-    public  void recvMessage(Session session, MessageConsumer consumer) throws JMSException {
-    	// 设置接收者接收消息超时时间
-		TextMessage message = (TextMessage) consumer.receive(1000);
-		if (null != message) {
-			System.out.println(Thread.currentThread().getName() + "--收到消息" + message.getText());
-		}
-    }
-    
-    private  MessageListener messageListener = new MessageListener() {
-		@Override
-		public void onMessage(Message message) {
-			// TODO Auto-generated method stub
-			if (null != message) {
-				System.out.println(Thread.currentThread().getName() + "--收到消息" + message);
-			}
-		}
-	};
 }
 
 
