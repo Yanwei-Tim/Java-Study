@@ -1,5 +1,7 @@
 package com.min.activemq.test;
 
+import java.io.Console;
+
 import javax.jms.Connection;
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -7,16 +9,11 @@ import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Session;
+import javax.jms.TextMessage;
+
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-/**
- * Message Queue Type;
- * QUEUE  队列消息；
- * TOPIC 订阅消息
- */
-enum MQ_TYPE{
-	QUEUE, TOPIC
-}
+import com.min.activemq.mq.Constants;
 
 /**
  * 
@@ -35,20 +32,27 @@ public class Receiver extends Thread{
     MessageConsumer consumer;
     private boolean running = false;
     private  MessageListener messageListener;
+    private int mqType;
     
     private String username;
     private String password;
     private String brokerURL;
     
-    public Receiver(String username, String password, String brokerURL){
+    public Receiver(String username, String password, String brokerURL, int mqType){
     	this.username = username;
     	this.password = password;
     	this.brokerURL = brokerURL;
+    	this.mqType = mqType;
     	messageListener  = new MessageListener() {
     		@Override
     		public void onMessage(Message message) {
     			if (null != message) {
-    				System.out.println(Thread.currentThread().getName() + "--收到消息" + message);
+    				if (message instanceof TextMessage)
+						try {
+							System.out.println(Thread.currentThread().getName() + "--收到消息--" + ((TextMessage)message).getText());
+						} catch (JMSException e) {
+							e.printStackTrace();
+						}
     			}
     		}
     	};
@@ -60,6 +64,8 @@ public class Receiver extends Thread{
     public void setMessageListener(MessageListener messageListener){
     	this.messageListener = messageListener;
     }
+    
+    
     
     /**
      * 启动接收消息
@@ -114,7 +120,10 @@ public class Receiver extends Thread{
 			// 获取操作连接
 			session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
 			// Destination ：消息的目的地;消息发送给谁.
-			Destination destination = session.createQueue("FirstQueue");
+			Destination destination = session
+					.createQueue((this.mqType == Constants.MQ_TOPIC) ? 
+							Constants.MQ_TOPIC_NAME
+							: Constants.MQ_QUEUE_NAME);
 			consumer = session.createConsumer(destination);
 			consumer.setMessageListener(this.messageListener);
 		} catch (Exception e) {

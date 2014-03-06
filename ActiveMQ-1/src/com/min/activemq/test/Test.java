@@ -1,5 +1,7 @@
 package com.min.activemq.test;
 
+import com.min.activemq.mq.Constants;
+
 /**
  * 程序的简单说明
  * @author min.zhao
@@ -22,11 +24,11 @@ public class Test {
 		int size = 1;
 		Receiver receivers[] = new Receiver[size];
 		for (int i = 0; i < size; i++) {
-			receivers[i] = new Receiver("system", "manager", "tcp://192.168.108.13:61616");
+			receivers[i] = new Receiver("system", "manager", "tcp://192.168.108.13:61616", Constants.MQ_TOPIC);
 			receivers[i].startRecv();
 		}
 		
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 100; i++) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
