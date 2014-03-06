@@ -28,7 +28,7 @@ public class Receiver extends Thread{
     // Session： 一个发送或接收消息的线程
     private Session session;
     MessageConsumer consumer;
-    private boolean running = false;
+    private boolean connected = false;
     private  MessageListener messageListener;
     private int mqType;
     private String subscriberName; // 订阅者名称
@@ -71,10 +71,10 @@ public class Receiver extends Thread{
      * 启动接收消息
      */
     public void startRecv(){
-    	if (!this.running){
+    	if (!this.connected){
     		//this.setDaemon(true);
+    		this.connected = true;
     		super.start();
-    		this.running = true;
     	}
     }
     
@@ -99,7 +99,7 @@ public class Receiver extends Thread{
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
-    	this.running = false;
+    	this.connected = false;
     }
     
 	public void run() {
