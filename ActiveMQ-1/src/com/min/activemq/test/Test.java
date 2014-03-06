@@ -24,7 +24,9 @@ public class Test {
 		int size = 1;
 		Receiver receivers[] = new Receiver[size];
 		for (int i = 0; i < size; i++) {
-			receivers[i] = new Receiver("system", "manager", "tcp://192.168.108.13:61616", Constants.MQ_TOPIC);
+			receivers[i] = new Receiver("system", "manager", 
+					"tcp://192.168.108.13:61616",
+					Constants.MQ_TOPIC);
 			receivers[i].startRecv();
 		}
 		

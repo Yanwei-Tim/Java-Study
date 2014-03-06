@@ -120,10 +120,12 @@ public class Receiver extends Thread{
 			// 获取操作连接
 			session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
 			// Destination ：消息的目的地;消息发送给谁.
-			Destination destination = session
-					.createQueue((this.mqType == Constants.MQ_TOPIC) ? 
-							Constants.MQ_TOPIC_NAME
-							: Constants.MQ_QUEUE_NAME);
+			Destination destination;
+            if (this.mqType  == Constants.MQ_TOPIC){
+            	destination = session.createTopic(Constants.MQ_TOPIC_NAME);
+            }else{
+            	destination = session.createQueue(Constants.MQ_QUEUE_NAME);
+            }
 			consumer = session.createConsumer(destination);
 			consumer.setMessageListener(this.messageListener);
 		} catch (Exception e) {
