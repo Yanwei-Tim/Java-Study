@@ -7,45 +7,46 @@ import javax.jms.Destination;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class Sender {
-    private static final int SEND_NUMBER = 5;
+    private static final int SEND_NUMBER = 1500;
 
     public static void main(String[] args) {
-        // ConnectionFactory £ºÁ¬½Ó¹¤³§£¬JMS ÓÃËü´´½¨Á¬½Ó
+        // ConnectionFactory ï¼šè¿æ¥å·¥å‚ï¼ŒJMS ç”¨å®ƒåˆ›å»ºè¿æ¥
         ConnectionFactory connectionFactory;
-        // Connection £ºJMS ¿Í»§¶Ëµ½JMS Provider µÄÁ¬½Ó
+        // Connection ï¼šJMS å®¢æˆ·ç«¯åˆ°JMS Provider çš„è¿æ¥
         Connection connection = null;
-        // Session£º Ò»¸ö·¢ËÍ»ò½ÓÊÕÏûÏ¢µÄÏß³Ì
+        // Sessionï¼š ä¸€ä¸ªå‘é€æˆ–æ¥æ”¶æ¶ˆæ¯çš„çº¿ç¨‹
         Session session;
-        // Destination £ºÏûÏ¢µÄÄ¿µÄµØ;ÏûÏ¢·¢ËÍ¸øË­.
+        // Destination ï¼šæ¶ˆæ¯çš„ç›®çš„åœ°;æ¶ˆæ¯å‘é€ç»™è°.
         Destination destination;
-        // MessageProducer£ºÏûÏ¢·¢ËÍÕß
+        // MessageProducerï¼šæ¶ˆæ¯å‘é€è€…
         MessageProducer producer;
         // TextMessage message;
-        // ¹¹ÔìConnectionFactoryÊµÀı¶ÔÏó£¬´Ë´¦²ÉÓÃActiveMqµÄÊµÏÖjar
+        // æ„é€ ConnectionFactoryå®ä¾‹å¯¹è±¡ï¼Œæ­¤å¤„é‡‡ç”¨ActiveMqçš„å®ç°jar
         connectionFactory = new ActiveMQConnectionFactory(
                 //ActiveMQConnection.DEFAULT_USER,
                // ActiveMQConnection.DEFAULT_PASSWORD,
         		"system","manager",
-                "tcp://localhost:61616");
+                //"tcp://localhost:61616"
+        		"tcp://192.168.108.13:61616"
+        		);
         try {
-            // ¹¹Ôì´Ó¹¤³§µÃµ½Á¬½Ó¶ÔÏó
+            // æ„é€ ä»å·¥å‚å¾—åˆ°è¿æ¥å¯¹è±¡
             connection = connectionFactory.createConnection();
-            // Æô¶¯
+            // å¯åŠ¨
             connection.start();
-            // »ñÈ¡²Ù×÷Á¬½Ó
+            // è·å–æ“ä½œè¿æ¥
             session = connection.createSession(Boolean.TRUE,
                     Session.AUTO_ACKNOWLEDGE);
-            // »ñÈ¡session×¢Òâ²ÎÊıÖµxingbo.xu-queueÊÇÒ»¸ö·şÎñÆ÷µÄqueue£¬ĞëÔÚÔÚActiveMqµÄconsoleÅäÖÃ
+            // è·å–sessionæ³¨æ„å‚æ•°å€¼xingbo.xu-queueæ˜¯ä¸€ä¸ªæœåŠ¡å™¨çš„queueï¼Œé¡»åœ¨åœ¨ActiveMqçš„consoleé…ç½®
             destination = session.createQueue("FirstQueue");
-            // µÃµ½ÏûÏ¢Éú³ÉÕß¡¾·¢ËÍÕß¡¿
+            // å¾—åˆ°æ¶ˆæ¯ç”Ÿæˆè€…ã€å‘é€è€…ã€‘
             producer = session.createProducer(destination);
-            // ÉèÖÃ²»³Ö¾Ã»¯£¬´Ë´¦Ñ§Ï°£¬Êµ¼Ê¸ù¾İÏîÄ¿¾ö¶¨
+            // è®¾ç½®ä¸æŒä¹…åŒ–ï¼Œæ­¤å¤„å­¦ä¹ ï¼Œå®é™…æ ¹æ®é¡¹ç›®å†³å®š
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
-            // ¹¹ÔìÏûÏ¢£¬´Ë´¦Ğ´ËÀ£¬ÏîÄ¿¾ÍÊÇ²ÎÊı£¬»òÕß·½·¨»ñÈ¡
+            // æ„é€ æ¶ˆæ¯ï¼Œæ­¤å¤„å†™æ­»ï¼Œé¡¹ç›®å°±æ˜¯å‚æ•°ï¼Œæˆ–è€…æ–¹æ³•è·å–
             sendMessage(session, producer);
             //session.commit();
             session.close();
@@ -64,12 +65,12 @@ public class Sender {
             throws Exception {
         for (int i = 1; i <= SEND_NUMBER; i++) {
             TextMessage message = session
-                    .createTextMessage("ActiveMq ·¢ËÍµÄÏûÏ¢" + i);
-            // ·¢ËÍÏûÏ¢µ½Ä¿µÄµØ·½
-            System.out.println("·¢ËÍÏûÏ¢£º" + "ActiveMq ·¢ËÍµÄÏûÏ¢" + i);
+                    .createTextMessage("ActiveMq å‘é€çš„æ¶ˆæ¯" + i);
+            // å‘é€æ¶ˆæ¯åˆ°ç›®çš„åœ°æ–¹
+            System.out.println("å‘é€æ¶ˆæ¯ï¼š" + "ActiveMq å‘é€çš„æ¶ˆæ¯" + i);
             producer.send(message);
             session.commit();
-            Thread.sleep(1000);
+            Thread.sleep(100);
         }
     }
 }

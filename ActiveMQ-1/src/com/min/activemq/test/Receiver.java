@@ -6,56 +6,83 @@ import javax.jms.Destination;
 import javax.jms.MessageConsumer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-public class Receiver {
-    public static void main(String[] args) {
-        // ConnectionFactory £ºÁ¬½Ó¹¤³§£¬JMS ÓÃËü´´½¨Á¬½Ó
-        ConnectionFactory connectionFactory;
-        // Connection £ºJMS ¿Í»§¶Ëµ½JMS Provider µÄÁ¬½Ó
-        Connection connection = null;
-        // Session£º Ò»¸ö·¢ËÍ»ò½ÓÊÕÏûÏ¢µÄÏß³Ì
-        Session session;
-        // Destination £ºÏûÏ¢µÄÄ¿µÄµØ;ÏûÏ¢·¢ËÍ¸øË­.
-        Destination destination;
-        // Ïû·ÑÕß£¬ÏûÏ¢½ÓÊÕÕß
-        MessageConsumer consumer;
-        connectionFactory = new ActiveMQConnectionFactory(
-                //ActiveMQConnection.DEFAULT_USER,
-               // ActiveMQConnection.DEFAULT_PASSWORD,
-        		"system","manager",
-                "tcp://localhost:61616");
-        try {
-            // ¹¹Ôì´Ó¹¤³§µÃµ½Á¬½Ó¶ÔÏó
-            connection = connectionFactory.createConnection();
-            // Æô¶¯
-            connection.start();
-            // »ñÈ¡²Ù×÷Á¬½Ó
-            session = connection.createSession(Boolean.FALSE,
-                    Session.AUTO_ACKNOWLEDGE);
-            // »ñÈ¡session×¢Òâ²ÎÊıÖµxingbo.xu-queueÊÇÒ»¸ö·şÎñÆ÷µÄqueue£¬ĞëÔÚÔÚActiveMqµÄconsoleÅäÖÃ
-            destination = session.createQueue("FirstQueue");
-            consumer = session.createConsumer(destination);
-            for (int i = 0; i < 1000; i++) {
-            	 //ÉèÖÃ½ÓÊÕÕß½ÓÊÕÏûÏ¢µÄÊ±¼ä£¬ÎªÁË±ãÓÚ²âÊÔ£¬100ms½ÓÊÕÒ»´Î
-                TextMessage message = (TextMessage) consumer.receive(100);
-                if (null != message) {
-                    System.out.println("ÊÕµ½ÏûÏ¢" + message.getText());
-                }
-                Thread.sleep(1000);
-			}
-            session.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (null != connection)
-                    connection.close();
-            } catch (Throwable ignore) {
-            }
-        }
+public class Receiver extends Thread{
+	
+    // ConnectionFactory ï¼šè¿æ¥å·¥å‚ï¼ŒJMS ç”¨å®ƒåˆ›å»ºè¿æ¥
+    private ConnectionFactory connectionFactory;
+    
+    // Connection ï¼šJMS å®¢æˆ·ç«¯åˆ°JMS Provider çš„è¿æ¥
+    private Connection connection = null;
+    // Sessionï¼š ä¸€ä¸ªå‘é€æˆ–æ¥æ”¶æ¶ˆæ¯çš„çº¿ç¨‹
+    private Session session;
+    // Destination ï¼šæ¶ˆæ¯çš„ç›®çš„åœ°;æ¶ˆæ¯å‘é€ç»™è°.
+    private Destination destination;
+    // æ¶ˆè´¹è€…ï¼Œæ¶ˆæ¯æ¥æ”¶è€…
+    private MessageConsumer consumer;
+    
+    private boolean running =false;
+  
+    public Receiver(){
+    	
     }
+    
+    public void startRecv(){
+    	if (!this.running){
+    		//this.setDaemon(true);
+    		super.start();
+    	}
+    }
+    
+    public void stopRecv(){
+    	this.running = false;
+    }
+    
+	public void run() {
+		this.running = true;
+		try {
+			connectionFactory = new ActiveMQConnectionFactory(
+			// ActiveMQConnection.DEFAULT_USER,
+			// ActiveMQConnection.DEFAULT_PASSWORD,
+					"system", "manager",
+					// "tcp://localhost:61616"
+					"tcp://192.168.108.13:61616");
+
+			// æ„é€ ä»å·¥å‚å¾—åˆ°è¿æ¥å¯¹è±¡
+			connection = connectionFactory.createConnection();
+			// å¯åŠ¨
+			connection.start();
+			// è·å–æ“ä½œè¿æ¥
+			session = connection.createSession(Boolean.FALSE,
+					Session.AUTO_ACKNOWLEDGE);
+			// è·å–sessionæ³¨æ„å‚æ•°å€¼xingbo.xu-queueæ˜¯ä¸€ä¸ªæœåŠ¡å™¨çš„queueï¼Œé¡»åœ¨åœ¨ActiveMqçš„consoleé…ç½®
+			destination = session.createQueue("FirstQueue");
+			consumer = session.createConsumer(destination);
+			
+		while (this.running) {
+				// è®¾ç½®æ¥æ”¶è€…æ¥æ”¶æ¶ˆæ¯è¶…æ—¶æ—¶é—´
+				TextMessage message = (TextMessage) consumer.receive(1000);
+				if (null != message) {
+					System.out.println(Thread.currentThread().getName() + "--æ”¶åˆ°æ¶ˆæ¯" + message.getText());
+				}
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (null != session) {
+					session.close();
+				}
+				if (null != connection) {
+					connection.close();
+				}
+			} catch (Throwable ignore) {
+			}
+		}
+		
+		this.running = false;
+	}
 }
 
 
