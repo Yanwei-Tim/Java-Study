@@ -1,14 +1,5 @@
 package com.min.activemq.test;
 
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.MessageConsumer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-
-import org.apache.activemq.ActiveMQConnectionFactory;
-
 /**
  * 程序的简单说明
  * @author min.zhao
@@ -18,9 +9,11 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 public class Test {
 
 	public Test() {
-		
 	}
 
+//	public void testRecveiver(){
+//		
+//	}
 	/**
 	 * @param args
 	 * @throws InterruptedException 
@@ -29,10 +22,9 @@ public class Test {
 		int size = 1;
 		Receiver receivers[] = new Receiver[size];
 		for (int i = 0; i < size; i++) {
-			receivers[i] = new Receiver();
+			receivers[i] = new Receiver("system", "manager", "tcp://192.168.108.13:61616");
 			receivers[i].startRecv();
 		}
-		
 		
 		for (int i = 0; i < 10; i++) {
 			try {

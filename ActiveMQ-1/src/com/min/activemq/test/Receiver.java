@@ -10,6 +10,15 @@ import javax.jms.Session;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 /**
+ * Message Queue Type;
+ * QUEUE  队列消息；
+ * TOPIC 订阅消息
+ */
+enum MQ_TYPE{
+	QUEUE, TOPIC
+}
+
+/**
  * 
 * 消息接收者，内部使用线程创建Connection
 * @author min.zhao
@@ -27,7 +36,14 @@ public class Receiver extends Thread{
     private boolean running = false;
     private  MessageListener messageListener;
     
-    public Receiver(){
+    private String username;
+    private String password;
+    private String brokerURL;
+    
+    public Receiver(String username, String password, String brokerURL){
+    	this.username = username;
+    	this.password = password;
+    	this.brokerURL = brokerURL;
     	messageListener  = new MessageListener() {
     		@Override
     		public void onMessage(Message message) {
@@ -85,9 +101,11 @@ public class Receiver extends Thread{
 			 connectionFactory = new ActiveMQConnectionFactory(
 			// ActiveMQConnection.DEFAULT_USER,
 			// ActiveMQConnection.DEFAULT_PASSWORD,
-					"system", "manager",
+					this.username, this.password,
+					this.brokerURL
 					// "tcp://localhost:61616"
-					"tcp://192.168.108.13:61616");
+					//"tcp://192.168.108.13:61616"
+					);
 			
 			// 构造从工厂得到连接对象
 			connection = connectionFactory.createConnection();
