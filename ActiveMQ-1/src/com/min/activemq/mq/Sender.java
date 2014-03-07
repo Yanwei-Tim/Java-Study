@@ -1,9 +1,15 @@
 package com.min.activemq.mq;
 
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.Map;
+
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
+import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
@@ -90,20 +96,42 @@ public class Sender extends Transceiver{
 		}
     }
     
-    public boolean sendMessage(String text) throws Exception{
-    	synchronized (this) {
-    	       if (this.isStartUp && this.isConnected){
-    	    	   TextMessage message = session.createTextMessage(text);
-    	           producer.send(message);
-    	           System.out.println("发送消息 : " + text);
-    	           session.commit();
-    	           return true;
-    	       }else{
-    	    	   return false;
-    	       }
+    /**
+     * 
+     * @param obj, 值为String, Serializable object, Map(其value只能为原始数据类型(Integer, Double, Long ...), String objects, and byte arrays)
+     * @return
+     * @throws Exception
+     */
+    public boolean sendMessage(Object obj) throws Exception{
+		synchronized (this) {
+			if (this.isStartUp && this.isConnected) {
+				if (obj instanceof String) {
+					TextMessage textMsg = session
+							.createTextMessage((String) obj);
+					producer.send(textMsg);
+					System.out.println("发送消息 : " + obj);
+				} else if (obj instanceof Map) {
+					Map map = (Map) obj;
+					MapMessage mapMsg = session.createMapMessage();
+					Iterator iter = map.keySet().iterator();
+					while (iter.hasNext()) {
+						String key = (String) iter.next();
+						Object value = map.get(key);
+						mapMsg.setObject(key, value);
+					}
+					producer.send(mapMsg);
+				} else {
+					ObjectMessage objMsg = session.createObjectMessage();
+					objMsg.setObject((Serializable) obj);
+				}
+				session.commit();
+				return true;
+			} else {
+				return false;
+			}
 		}
     }
-    
+
     public static void main(String[] args) {
     	int type = Constants.MQ_TOPIC;
     	int deliveryMode = DeliveryMode.NON_PERSISTENT;
