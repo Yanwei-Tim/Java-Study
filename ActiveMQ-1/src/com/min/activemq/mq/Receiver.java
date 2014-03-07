@@ -133,12 +133,12 @@ public class Receiver extends Transceiver{
 	
 	/**
 	 * 取消持久化订阅
-	 * @return
+	 * @return 
 	 * @throws Exception
 	 */
 	public  boolean stopDurableSubscibe() throws Exception{
 		synchronized (this) {
- 	       if (this.isStartUp && this.isConnected){
+ 	       if ( (this.subscriberName!=null) && this.isStartUp && this.isConnected){
  	    	  session.unsubscribe(this.subscriberName);
  	    	  System.out.println(this.subscriberName +" stop DurableSubscibe");
  	    	  return true;
