@@ -1,12 +1,12 @@
 #Fat Jar Configuration File
-#Fri Mar 07 10:53:31 CST 2014
+#Fri Mar 07 13:25:21 CST 2014
 onejar.license.required=false
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=true
-jarname=E\:\\Works\\Git-Space\\Java-Study\\ActiveMQ-1\\MQSender.jar
+jarname=E\:\\Works\\Git-Space\\Java-Study\\ActiveMQ-1\\MQReceiver.jar
 manifest.mergeall=true
-manifest.mainclass=com.min.activemq.mq.Sender
+manifest.mainclass=com.min.activemq.mq.Receiver
 manifest.file=<createnew>
 jarname.isextern=true
 onejar.expand=
