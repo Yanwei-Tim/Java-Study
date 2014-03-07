@@ -29,7 +29,7 @@ public class Receiver extends Transceiver{
      * @param password 密码
      * @param brokerURL brokerURL
      * @param mqType 消息队列类型, 值为 {@link Constants.MQ_TOPIC}或{@link Constants.MQ_QUEUE}
-     * @param isDurableSubscriber 持久订阅者
+     * @param isDurableSubscriber 是否为持久订阅者
      * @param subscriberName 订阅者名称，必须唯一
      */
     public Receiver(String username, String password, String brokerURL, int mqType, boolean isDurableSubscriber, String subscriberName){
