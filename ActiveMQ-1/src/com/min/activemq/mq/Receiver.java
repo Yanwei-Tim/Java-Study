@@ -1,6 +1,5 @@
 package com.min.activemq.mq;
 
-import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.InvalidClientIDException;
 import javax.jms.JMSException;
