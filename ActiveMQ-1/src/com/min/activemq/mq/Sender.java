@@ -60,10 +60,10 @@ public class Sender extends Transceiver{
     
     public void startUp() {
     	if (!this.isStartUp){
+    		this.isStartUp = true;
     		//this.setDaemon(true);
     		Thread thread = new Thread(this);
     		thread.start();
-    		this.isStartUp = true;
     	}
     }
     

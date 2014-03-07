@@ -1,6 +1,7 @@
 package com.min.activemq.mq;
 
 import javax.jms.Destination;
+import javax.jms.InvalidClientIDException;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
@@ -63,10 +64,10 @@ public class Receiver extends Transceiver{
      */
     public void startUp(){
     	if (!this.isStartUp){
+    		this.isStartUp = true;
     		//this.setDaemon(true);
     		Thread thread = new Thread(this);
     		thread.start();
-    		this.isStartUp = true;
     	}
     }
     
@@ -119,9 +120,12 @@ public class Receiver extends Transceiver{
             	consumer = session.createConsumer(destination);
             }
 			consumer.setMessageListener(this.messageListener);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			this.shutDown();// 出异常就停止接收消息并作清理
+			if (e instanceof InvalidClientIDException){
+				System.out.println(this.subscriberName + " already connected");
+			}
 		}
 		this.isConnected = true;
 		System.out.println("receiver connect thread exited");
