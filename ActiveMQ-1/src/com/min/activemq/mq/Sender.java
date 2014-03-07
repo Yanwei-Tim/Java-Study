@@ -90,13 +90,16 @@ public class Sender extends Transceiver{
 		}
     }
     
-    public void sendMessage(String text) throws Exception{
+    public boolean sendMessage(String text) throws Exception{
     	synchronized (this) {
     	       if (this.isStartUp && this.isConnected){
     	    	   TextMessage message = session.createTextMessage(text);
     	           producer.send(message);
     	           System.out.println("发送消息 : " + text);
     	           session.commit();
+    	           return true;
+    	       }else{
+    	    	   return false;
     	       }
 		}
     }

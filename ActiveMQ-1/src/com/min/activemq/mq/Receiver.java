@@ -131,6 +131,23 @@ public class Receiver extends Transceiver{
 		System.out.println("receiver connect thread exited");
 	}
 	
+	/**
+	 * 取消持久化订阅
+	 * @return
+	 * @throws Exception
+	 */
+	public  boolean stopDurableSubscibe() throws Exception{
+		synchronized (this) {
+ 	       if (this.isStartUp && this.isConnected){
+ 	    	  session.unsubscribe(this.subscriberName);
+ 	    	  System.out.println(this.subscriberName +" stop DurableSubscibe");
+ 	    	  return true;
+ 	       }else{
+ 	    	   return false;
+ 	       }
+		}
+	}
+	
 	public static void main(String[] args) {
 		int size = 1;
 		Receiver receivers[] = new Receiver[size];

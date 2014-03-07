@@ -14,7 +14,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
  */
 public abstract class Transceiver implements Runnable {
 		// ConnectionFactory ：连接工厂，JMS 用它创建连接
-		ActiveMQConnectionFactory connectionFactory;
+		private ActiveMQConnectionFactory connectionFactory;
 	    // Connection ：JMS 客户端到JMS Provider 的连接
 		protected Connection connection;
 	    // Session： 一个发送或接收消息的线程
@@ -54,7 +54,6 @@ public abstract class Transceiver implements Runnable {
 		);
 		// 构造从工厂得到连接对象
 		connection = connectionFactory.createConnection();
-		// 设置客户端唯一ID，如果mq已存在将会报错
 	}
 	
 	public boolean isConnected(){
