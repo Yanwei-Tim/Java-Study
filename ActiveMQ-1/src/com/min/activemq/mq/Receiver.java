@@ -28,7 +28,7 @@ public class Receiver extends Transceiver{
      * @param username 用户名
      * @param password 密码
      * @param brokerURL brokerURL
-     * @param mqType 消息队列类型, 值为 {@link Constants.MQ_TOPIC},  {@link Constants.MQ_QUEUE}
+     * @param mqType 消息队列类型, 值为 {@link Constants.MQ_TOPIC}或{@link Constants.MQ_QUEUE}
      * @param isDurableSubscriber 持久订阅者
      * @param subscriberName 订阅者名称，必须唯一
      */
@@ -126,6 +126,34 @@ public class Receiver extends Transceiver{
 		this.isConnected = true;
 		System.out.println("receiver connect thread exited");
 	}
+	
+	public static void main(String[] args) {
+		int size = 1;
+		Receiver receivers[] = new Receiver[size];
+		for (int i = 0; i < size; i++) {
+			receivers[i] = new Receiver("system", "manager", 
+					"tcp://192.168.108.13:61616",
+					Constants.MQ_TOPIC,
+					false,
+					"subscriber1");
+			receivers[i].startUp();
+		}
+		
+		for (int i = 0; i < 100; i++) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		for (int i = 0; i < size; i++) {
+			receivers[i].shutDown();
+		}
+		
+		System.out.println("Receiver main thread exited");
+	}
+	
 }
 
 

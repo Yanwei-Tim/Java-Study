@@ -30,6 +30,13 @@ public abstract class Transceiver implements Runnable {
 	    abstract public void startUp();
 	    abstract public void shutDown();
 	    
+	    /**
+	     * 
+	     * @param username 用户名
+	     * @param password 密码
+	     * @param brokerURL brokerURL
+	     * @param mqType 消息队列类型, 值为 {@link Constants.MQ_TOPIC},  {@link Constants.MQ_QUEUE}
+	     */
 	    public Transceiver(String username, String password, String brokerURL, int mqType){
 	    	this.username = username;
 	    	this.password = password;
