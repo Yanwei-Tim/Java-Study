@@ -1,5 +1,6 @@
 package com.min.activemq.mq;
 
+import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.InvalidClientIDException;
 import javax.jms.JMSException;
@@ -149,24 +150,61 @@ public class Receiver extends Transceiver{
 	}
 	
 	public static void main(String[] args) {
+		int type = Constants.MQ_TOPIC;
+    	boolean isDurableSubscriber = false;
+		if (args != null && args.length > 0) {
+			for (String arg : args) {
+				System.out.println("arg=" + arg);
+			}
+			if (args.length >= 2) {
+				type = Integer.parseInt(args[0]);
+				isDurableSubscriber = Integer.parseInt(args[1]) == 0?false:true;
+			}
+		}else{
+			System.out.println("第1个参数 0:topic  1:queue");
+			System.out.println("第2个参数 0:非持久化订阅  1:持久化订阅");
+			return;
+		}
+		
+		String ttQueue =  (type==Constants.MQ_TOPIC)?"topic":"queue";
+		String ttPersistent = (isDurableSubscriber) ? "持久化订阅":"非持久化订阅";
+		System.out.println("Receiver：" + ttQueue + "--" + ttPersistent);
+		
 		int size = 1;
 		Receiver receivers[] = new Receiver[size];
 		for (int i = 0; i < size; i++) {
 			receivers[i] = new Receiver("system", "manager", 
 					"tcp://192.168.108.13:61616",
-					Constants.MQ_TOPIC,
-					false,
+					type,
+					isDurableSubscriber,
 					"subscriber1");
 			receivers[i].startUp();
 		}
 		
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		
+//		for (int i = 0; i < size; i++) {
+//			try {
+//				receivers[i].stopDurableSubscibe();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+		
+		for (int i = 0; i < 90; i++) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		for (int i = 0; i < size; i++) {
 			receivers[i].shutDown();

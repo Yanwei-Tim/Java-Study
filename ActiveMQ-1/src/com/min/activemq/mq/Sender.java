@@ -106,22 +106,28 @@ public class Sender extends Transceiver{
     
     public static void main(String[] args) {
     	int type = Constants.MQ_TOPIC;
+    	int deliveryMode = DeliveryMode.NON_PERSISTENT;
 		if (args != null && args.length > 0) {
 			for (String arg : args) {
 				System.out.println("arg=" + arg);
 			}
-			if (args.length >= 1) {
+			if (args.length >= 2) {
 				type = Integer.parseInt(args[0]);
+				deliveryMode = Integer.parseInt(args[1]) == 0 ? DeliveryMode.NON_PERSISTENT
+						: DeliveryMode.PERSISTENT;
 			}
 		}else{
-			System.out.println("参数0:topic  1:queue");
+			System.out.println("第1个参数 0:topic  1:queue");
+			System.out.println("第2个参数 0:不持久化  1:持久化");
 			return;
 		}
-		String tt =  (type==Constants.MQ_TOPIC)?"topic msg":"queue msg";
-		System.out.println("发送" + tt);
+		
+		String ttQueue =  (type==Constants.MQ_TOPIC)?"topic":"queue";
+		String ttPersistent = (deliveryMode == DeliveryMode.NON_PERSISTENT) ? "不持久化":"持久化";
+		System.out.println("Sender:  " + ttQueue + "--" + ttPersistent);
 		
 		Sender sender = new Sender("system", "manager", 
-				"tcp://192.168.108.13:61616",type, DeliveryMode.NON_PERSISTENT);
+				"tcp://192.168.108.13:61616",type, deliveryMode);
 		sender.startUp();
 		
 		// 等待连接OK
