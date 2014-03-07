@@ -28,6 +28,7 @@ public class Test {
 			receivers[i] = new Receiver("system", "manager", 
 					"tcp://192.168.108.13:61616",
 					Constants.MQ_TOPIC,
+					false,
 					"subscriber1");
 			receivers[i].startUp();
 		}

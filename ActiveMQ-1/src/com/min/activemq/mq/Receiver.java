@@ -9,8 +9,6 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-
 
 /**
  * 
@@ -22,10 +20,21 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 public class Receiver extends Transceiver{
 	private MessageConsumer consumer;
     private  MessageListener messageListener;
+    private boolean isDurableSubscriber; // 是否为持久订阅者
     private String subscriberName; // 订阅者名称
     
-    public Receiver(String username, String password, String brokerURL, int mqType, String subscriberName){
+    /**
+     * 
+     * @param username 用户名
+     * @param password 密码
+     * @param brokerURL brokerURL
+     * @param mqType 消息队列类型, 值为 {@link Constants.MQ_TOPIC},  {@link Constants.MQ_QUEUE}
+     * @param isDurableSubscriber 持久订阅者
+     * @param subscriberName 订阅者名称，必须唯一
+     */
+    public Receiver(String username, String password, String brokerURL, int mqType, boolean isDurableSubscriber, String subscriberName){
     	super(username, password, brokerURL, mqType);
+    	this.isDurableSubscriber = isDurableSubscriber;
     	this.subscriberName = subscriberName;
     	messageListener  = new MessageListener() {
     		@Override
@@ -100,7 +109,11 @@ public class Receiver extends Transceiver{
 			Destination destination;
             if (this.mqType  == Constants.MQ_TOPIC){
             	destination = session.createTopic(Constants.MQ_TOPIC_NAME);
-            	consumer = session.createDurableSubscriber((Topic) destination, this.subscriberName);
+            	if (this.isDurableSubscriber){ //持久订阅者
+            		consumer = session.createDurableSubscriber((Topic) destination, this.subscriberName);
+            	}else{
+            		consumer = session.createConsumer(destination);
+            	}
             }else{
             	destination = session.createQueue(Constants.MQ_QUEUE_NAME);
             	consumer = session.createConsumer(destination);
