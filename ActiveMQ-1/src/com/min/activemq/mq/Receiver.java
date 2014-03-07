@@ -64,42 +64,33 @@ public class Receiver extends Transceiver{
     /**
      * 停止接收消息
      */
-    public void shutDown(){
-    	try {
-    		if (null !=consumer){
-    			consumer.setMessageListener(null);
-    			consumer.close();
-    			consumer = null;
+    public  void shutDown(){
+    	synchronized (this) {
+    		try {
+        		if (null !=consumer){
+        			consumer.setMessageListener(null);
+        			consumer.close();
+        			consumer = null;
+        		}
+    			if (null != session) {
+    				session.close();
+    				session = null;
+    			}
+    			if (null != connection) {
+    				connection.close();
+    				connection = null;
+    			}
+    		} catch (JMSException e) {
+    			e.printStackTrace();
     		}
-			if (null != session) {
-				session.close();
-				session = null;
-			}
-			if (null != connection) {
-				connection.close();
-				connection = null;
-			}
-		} catch (JMSException e) {
-			e.printStackTrace();
-		}
-    	this.isStartUp = false;
+        	this.isStartUp = false;
+        	this.isConnected = false;
+    	}
     }
     
 	public void run() {
 		try {
-			// ConnectionFactory ：连接工厂，JMS 用它创建连接
-			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
-			// ActiveMQConnection.DEFAULT_USER,
-			// ActiveMQConnection.DEFAULT_PASSWORD,
-					this.username, this.password,
-					this.brokerURL
-					// "tcp://localhost:61616"
-					//"tcp://192.168.108.13:61616"
-					);
-			
-			// 构造从工厂得到连接对象
-			connection = connectionFactory.createConnection();
-			// 设置客户端唯一ID，如果mq已存在将会报错
+			super.createConnection();
 			connection.setClientID( this.subscriberName);
 			// 启动
 			connection.start();
@@ -119,6 +110,7 @@ public class Receiver extends Transceiver{
 			e.printStackTrace();
 			this.shutDown();// 出异常就停止接收消息并作清理
 		}
+		this.isConnected = true;
 		System.out.println("receiver connect thread exited");
 	}
 }

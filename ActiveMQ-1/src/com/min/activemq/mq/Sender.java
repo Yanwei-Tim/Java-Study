@@ -24,22 +24,12 @@ public class Sender extends Transceiver{
     }
     
     public void run(){
-    	// ConnectionFactory ：连接工厂，JMS 用它创建连接
-    	ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
-                //ActiveMQConnection.DEFAULT_USER,
-               // ActiveMQConnection.DEFAULT_PASSWORD,
-    			this.username, this.password,
-				this.brokerURL
-        		//"tcp://localhost:61616"
-        		//"tcp://192.168.108.13:61616"
-        		);
         try {
-            // 构造从工厂得到连接对象
-            connection = connectionFactory.createConnection();
+        	super.createConnection();
             // 启动
             connection.start();
             // 获取操作连接
-            session = connection.createSession(Boolean.TRUE,Session.AUTO_ACKNOWLEDGE);
+            session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
             Destination destination;
             if (this.mqType == Constants.MQ_TOPIC){
             	destination = session.createTopic(Constants.MQ_TOPIC_NAME);
@@ -54,6 +44,7 @@ public class Sender extends Transceiver{
         	e.printStackTrace();
 			this.shutDown();// 出异常就停止接收消息并作清理
         }
+        this.isConnected = true;
         System.out.println("sender connect thread exited");
     }
     
@@ -67,32 +58,37 @@ public class Sender extends Transceiver{
     }
     
     public void shutDown() {
-    	try {
-    		if (null !=producer){
-    			producer.close();
-    			producer = null;
+    	synchronized (this) {
+    	   	try {
+        		if (null !=producer){
+        			producer.close();
+        			producer = null;
+        		}
+    			if (null != session) {
+    				session.close();
+    				session = null;
+    			}
+    			if (null != connection) {
+    				connection.close();
+    				connection = null;
+    			}
+    		} catch (JMSException e) {
+    			e.printStackTrace();
     		}
-			if (null != session) {
-				session.close();
-				session = null;
-			}
-			if (null != connection) {
-				connection.close();
-				connection = null;
-			}
-		} catch (JMSException e) {
-			e.printStackTrace();
+    		this.isStartUp = false;
+        	this.isConnected = false;
 		}
-    	this.isStartUp = false;
     }
     
     public void sendMessage(String text) throws Exception{
-       if (this.isStartUp && session != null){
-    	   TextMessage message = session.createTextMessage(text);
-           producer.send(message);
-           System.out.println("发送消息 : " + text);
-           session.commit();
-       }
+    	synchronized (this) {
+    	       if (this.isStartUp && this.isConnected){
+    	    	   TextMessage message = session.createTextMessage(text);
+    	           producer.send(message);
+    	           System.out.println("发送消息 : " + text);
+    	           session.commit();
+    	       }
+		}
     }
     
     public static void main(String[] args) {
