@@ -111,6 +111,15 @@ public class Sender extends Transceiver{
 				"tcp://192.168.108.13:61616",type);
 		sender.startUp();
 		
+		// 等待连接OK
+		while (!sender.isConnected()) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		// 测试消息发送
 		for (int i = 0; i < 100; i++) {
 			try {

@@ -27,7 +27,6 @@ public abstract class Transceiver implements Runnable {
 		protected boolean isStartUp;
 		protected boolean isConnected;
 
-	    
 	    abstract public void startUp();
 	    abstract public void shutDown();
 	    
@@ -39,7 +38,6 @@ public abstract class Transceiver implements Runnable {
 	    }
 	    
 	public void createConnection() throws JMSException {
-		
 		connectionFactory = new ActiveMQConnectionFactory(
 		// ActiveMQConnection.DEFAULT_USER,
 		// ActiveMQConnection.DEFAULT_PASSWORD,
@@ -50,5 +48,9 @@ public abstract class Transceiver implements Runnable {
 		// 构造从工厂得到连接对象
 		connection = connectionFactory.createConnection();
 		// 设置客户端唯一ID，如果mq已存在将会报错
+	}
+	
+	public boolean isConnected(){
+		return this.isConnected;
 	}
 }
