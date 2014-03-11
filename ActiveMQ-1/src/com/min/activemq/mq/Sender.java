@@ -98,11 +98,12 @@ public class Sender extends Transceiver{
     
     /**
      * 
-     * @param obj, 值为String, Serializable object, Map(其value只能为原始数据类型(Integer, Double, Long ...), String objects, and byte arrays)
+     * @param obj, 值为String, Serializable object, Map(其key为String类型，value只能为原始数据类型(Integer, Double, Long ...), String objects, and byte arrays)
      * @return
      * @throws Exception
      */
-    public boolean sendMessage(Object obj) throws Exception{
+    @SuppressWarnings("rawtypes")
+	public boolean sendMessage(Object obj) throws Exception{
 		synchronized (this) {
 			if (this.isStartUp && this.isConnected) {
 				if (obj instanceof String) {

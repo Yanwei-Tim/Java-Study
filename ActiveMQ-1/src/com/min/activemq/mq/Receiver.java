@@ -44,7 +44,8 @@ public class Receiver extends Transceiver{
     				if (message instanceof TextMessage)
 						try {
 							System.out.println(Thread.currentThread().getName() + "--收到消息--" + ((TextMessage)message).getText());
-						} catch (JMSException e) {
+							//Thread.sleep(1000);		// 阻塞1s试一试
+						} catch (Exception e) {
 							e.printStackTrace();
 						}
     			}
