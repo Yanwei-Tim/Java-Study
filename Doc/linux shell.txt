@@ -1,8 +1,15 @@
 grep
 
+# 查看所有监听端口
+netstat -lntp
+
 #查看指定端口是否打开
 netstat -apn|grep 8080
 tcp        0      0 :::8080                     :::*                        LISTEN      28262/java  
+
+#可以多次使用 grep 
+netstat -apnt |grep 3306 |grep java
+
 
 #查看指定pid进程信息
 ps -ef|grep 28262
@@ -16,6 +23,30 @@ java    28262 root   35u  IPv6 2055014      0t0  TCP *:webcache (LISTEN)
 find /auth_server -mmin -100 -name '*.log'
 
 #memcached telnet 删除字符是Ctrl+Backspace
+
+# 查看系统信息
+[root@mygou ~]# cat /etc/issue
+Red Hat Enterprise Linux Server release 6.3 (Santiago)
+
+[root@mygou ~]# uname -a
+Linux mygou 2.6.32-279.el6.x86_64 #1 SMP Wed Jun 13 18:24:36 EDT 2012 x86_64 x86_64 x86_64 GNU/Linux
+
+# 查看redhat
+[root@mygou ~]# cat /etc/redhat-release 
+Red Hat Enterprise Linux Server release 6.3 (Santiago)
+
+# 查看系统配置
+dmesg
+
+
+
+
+
+
+
+
+
+
 
 
 
