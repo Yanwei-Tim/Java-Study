@@ -56,7 +56,7 @@ public class ContactServiceImpl implements ContactService  {
 		obj.setEmail(null);	// 字段赋值null以制造异常
 		obj.setName(contact.getName());
 		obj.setPhone(contact.getPhone());
-		lastId = contactDao2.syncInsert(/*contact*/obj);
+		lastId = contactDao2.syncInsert(contact/*obj*/);
 		
 		return lastId;
 	}

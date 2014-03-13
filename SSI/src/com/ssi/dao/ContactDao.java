@@ -29,8 +29,8 @@ public class ContactDao extends SqlMapClientUtil {
 		return (Map) sqlMapClient.queryForObject("Contact.getById", Integer.valueOf(id));
 	}
 
-	public int insert(Contact contact) throws Exception {
-		return (int) sqlMapClient.insert("Contact.insert", contact);
+	public Integer insert(Contact contact) throws Exception {
+		return (Integer) sqlMapClient.insert("Contact.insert", contact);
 	}
 	
 	public List<Map> selectAll() throws Exception {
@@ -38,7 +38,7 @@ public class ContactDao extends SqlMapClientUtil {
 	}
 	
 	// jdbc 事务实现
-	public int testMultiTransaction(Contact contact) throws Exception{
+	public Integer testMultiTransaction(Contact contact) throws Exception{
 		int retId = 0;
 		Connection conn2 = sqlMapClient2.getDataSource().getConnection();
 		Connection conn = sqlMapClient.getDataSource().getConnection();
@@ -50,10 +50,10 @@ public class ContactDao extends SqlMapClientUtil {
 			sqlMapClient2.setUserConnection(conn2);
 			sqlMapClient.setUserConnection(conn);
 			
-			int lastId = (int) sqlMapClient2.insert("Contact.insert", contact);
+			int lastId = (Integer) sqlMapClient2.insert("Contact.insert", contact);
 			System.out.println("insert lastId:" + lastId);
 			
-			retId = (int) sqlMapClient.insert("Contact.insert", contact);
+			retId = (Integer) sqlMapClient.insert("Contact.insert", contact);
 			
 			conn.commit();
 			conn2.commit();
@@ -84,8 +84,8 @@ public class ContactDao extends SqlMapClientUtil {
 	}
 	 */
 	
-	public int syncInsert(Contact contact) throws Exception {
-		return (int) sqlMapClient.insert("Contact.insert", contact);
+	public Integer syncInsert(Contact contact) throws Exception {
+		return (Integer) sqlMapClient.insert("Contact.insert", contact);
 	}
 
 }

@@ -29,8 +29,8 @@ public class ContactDao2 {
 		return (Map) sqlMapClient2.queryForObject("Contact.getById", Integer.valueOf(id));
 	}
 
-	public int insert(Contact contact) throws Exception {
-		return (int) sqlMapClient2.insert("Contact.insert", contact);
+	public Integer insert(Contact contact) throws Exception {
+		return (Integer) sqlMapClient2.insert("Contact.insert", contact);
 	}
 	
 	public List<Map> selectAll() throws Exception {
@@ -43,7 +43,7 @@ public class ContactDao2 {
 	}
 	
 	// jotm事务实现
-	public int syncInsert(Contact contact) throws Exception {
-		return (int) sqlMapClient2.insert("Contact.insert", contact);
+	public Integer syncInsert(Contact contact) throws Exception {
+		return (Integer) sqlMapClient2.insert("Contact.insert", contact);
 	}
 }

@@ -63,8 +63,9 @@ public class Test {
 		ApplicationContext applicationContext = new ApplicationContext();
 		ContactService contactService = applicationContext
 				.loadBean(ContactService.class);
+		test1(contactService);
 		//testTrans(contactService);
-		testMutilTrans(contactService);
+		//testMutilTrans(contactService);
 	}
 
 }
