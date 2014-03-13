@@ -121,6 +121,7 @@ public class Receiver extends Transceiver{
             	consumer = session.createConsumer(destination);
             }
 			consumer.setMessageListener(this.messageListener);
+			this.isConnected = true;
 		}catch (Exception e) {
 			e.printStackTrace();
 			this.shutDown();// 出异常就停止接收消息并作清理
@@ -128,7 +129,6 @@ public class Receiver extends Transceiver{
 				System.out.println(this.subscriberName + " already connected");
 			}
 		}
-		this.isConnected = true;
 		System.out.println("receiver connect thread exited");
 	}
 	

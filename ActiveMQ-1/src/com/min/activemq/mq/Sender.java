@@ -56,11 +56,11 @@ public class Sender extends Transceiver{
             producer = session.createProducer(destination);
             // 设置持久化 实际根据项目决定
             producer.setDeliveryMode(this.deliveryMode);
+            this.isConnected = true;
         } catch (Exception e) {
         	e.printStackTrace();
 			this.shutDown();// 出异常就停止接收消息并作清理
         }
-        this.isConnected = true;
         System.out.println("sender connect thread exited");
     }
     
@@ -124,6 +124,7 @@ public class Sender extends Transceiver{
 				} else {
 					ObjectMessage objMsg = session.createObjectMessage();
 					objMsg.setObject((Serializable) obj);
+					producer.send(objMsg);
 				}
 				session.commit();
 				return true;
