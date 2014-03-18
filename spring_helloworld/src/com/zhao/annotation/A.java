@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("a")
-@Scope("prototype") 
+@Scope("singleton") //// @Scope("prototype")
 public class A {
 
 	private String mName;
@@ -23,8 +23,5 @@ public class A {
 		System.out.println("init mName");
 		mName = "yes";
 	}
-	
-	
-	
-	
+
 }
