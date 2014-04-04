@@ -1,0 +1,1 @@
+db.deviceLocationMongo.find({"imei":"863359010048193"}).sort({create_time:-1}).limit(10)
