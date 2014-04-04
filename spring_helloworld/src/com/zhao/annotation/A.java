@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("a")
-@Scope("singleton") //// @Scope("prototype")
+@Scope("prototype") //// @Scope("singleton")
 public class A {
 
 	private String mName;

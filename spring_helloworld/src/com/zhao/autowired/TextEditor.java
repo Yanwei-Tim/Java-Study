@@ -16,6 +16,9 @@ public class TextEditor {
 //		return spellChecker;
 //	}
 	
+	public TextEditor(){
+	      System.out.println("Inside TextEditor constructor." );
+	   }
 	
 	public void spellCheck() {
 		spellChecker.checkSpelling();

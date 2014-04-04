@@ -1,0 +1,84 @@
+1. 解压tomcat6
+
+2. 创建tomcat shell 
+位置：/etc/init.d/tomcat
+
+内容：
+
+#!/bin/sh
+#
+# chkconfig: 345 80 90
+# description: Tomcat service
+# processname: tomcat
+# pidfile: /var/run/tomcat.pid
+
+export JAVA_HOME=/software/jdk1.6.0_37
+export CATALINA_HOME=/software/apache-tomcat-6.0.39
+
+case $1 in
+start)
+        sh $CATALINA_HOME/bin/startup.sh
+        ;;
+
+stop)
+        sh $CATALINA_HOME/bin/shutdown.sh
+        ;;
+
+restart)
+        sh $CATALINA_HOME/bin/shutdown.sh
+        sh $CATALINA_HOME/bin/startup.sh
+        ;;
+
+*)
+echo "Usage:{start|stop|restart}"
+;;
+
+
+esac
+
+exit 0
+
+3. 使用chkconfig 添加到service
+[root@localhost rc3.d]# chkconfig --add tomcat
+[root@localhost rc3.d]# chkconfig --list tomcat
+tomcat         	0:关闭	1:关闭	2:关闭	3:启用	4:启用	5:启用	6:关闭
+[root@localhost rc3.d]# ls -l *tom*
+lrwxrwxrwx. 1 root root 16 4月   3 17:46 S80tomcat -> ../init.d/tomcat
+#查看rc3.d中发现自动创建S80tomcat
+
+4. 启动服务
+[root@localhost rc5.d]# service tomcat
+Usage:{start|stop|restart}
+[root@localhost rc5.d]# service tomcat start
+Using CATALINA_BASE:   /software/apache-tomcat-6.0.39
+Using CATALINA_HOME:   /software/apache-tomcat-6.0.39
+Using CATALINA_TMPDIR: /software/apache-tomcat-6.0.39/temp
+Using JRE_HOME:        /software/jdk1.6.0_37
+Using CLASSPATH:       /software/apache-tomcat-6.0.39/bin/bootstrap.jar
+[root@localhost rc5.d]# 
+
+5. 查看是否启动成功
+[root@localhost rc5.d]# netstat -lptn|grep 8080
+tcp        0      0 :::8080                     :::*                        LISTEN      3706/java  
+
+6. 关闭服务
+[root@localhost rc5.d]# service tomcat stop
+Using CATALINA_BASE:   /software/apache-tomcat-6.0.39
+Using CATALINA_HOME:   /software/apache-tomcat-6.0.39
+Using CATALINA_TMPDIR: /software/apache-tomcat-6.0.39/temp
+Using JRE_HOME:        /software/jdk1.6.0_37
+Using CLASSPATH:       /software/apache-tomcat-6.0.39/bin/bootstrap.jar
+
+
+
+
+
+
+
+
+
+
+
+
+
+

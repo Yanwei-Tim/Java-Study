@@ -35,24 +35,34 @@ db.log.aggregate(
 {$sort : {count : -1}}, 
 {$limit:10} )
 
+
+---\
+db.log.aggregate( 
+{$match : { op_type :0, log_category:2,"$and":[
+ {op_time:{$gt:ISODate("2014-03-18T07:50:26.614Z")}}, 
+ {op_time:{$lt:ISODate("2014-04-05T23:50:26.614Z")}} 
+ ] }}, 
+{$group : { _id : "$pkg_name", count : { $sum : 1 }}  },  
+{$sort : {count : -1}}, 
+{$limit:10} )
+
+
+
+
 -- 	aggregate	
 , username:"$username",op_time:"$op_time"
 username : { $username : 1 },
 username:{$addToSet: "$username"},
+
+
+
 db.log.aggregate(
 {$match : { op_type :0, log_category:2,"$and":[
  {op_time:{$gt:ISODate("2014-03-18T07:50:26.614Z")}}, 
- {op_time:{$lt:ISODate("2014-03-28T23:50:26.614Z")}} 
+ {op_time:{$lt:ISODate("2014-04-05T23:50:26.614Z")}} 
  ] }}, 
-{$project : {
-	imei:1,
-	username:1 ,
-	op_time:1,
-	op_type:1
-}},
 {$group : {
-_id :{imei:"$imei",username:"$username",op_type:"$op_type"} , 
-
+_id :{pkg_name:"$pkg_name",software_name:"$software_name"},
 count : { $sum : 1 } 
 } },  
 {$sort : {count : -1}}, 

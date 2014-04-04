@@ -1,0 +1,16 @@
+#grep查询 50 在/etc/group 目录中
+grep 50 /etc/group
+
+#保存只读文件
+:w !sudo tee %
+
+# 以易读的方式显示文件大小
+[root@mygou2 logs]# ls -lh
+总用量 107M
+-rw-r--r--. 1 root root 3.1K 2月  21 14:50 minaapp.log
+-rw-r--r--. 1 root root 107M 4月   4 09:09 wrapper.log
+
+# 按修改时间降序排列
+[root@mygou2 data]# ls -ltc
+
+

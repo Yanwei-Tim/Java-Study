@@ -55,7 +55,7 @@
 		<!-- <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true" maxThreads="150" 
 			scheme="https" secure="true" clientAuth="false" sslProtocol="TLS" />-->
 
-	<Connector SSLEnabled="true" clientAuth="false" keystoreFile="E:\\min_sso.keystore" keystorePass="123456" maxThreads="150" port="443" protocol="HTTP/1.1" scheme="https" secure="true" sslProtocol="TLS"/>
+		<Connector SSLEnabled="true" URIEncoding="UTF-8" clientAuth="false" keystoreFile="E:\\min_sso.keystore" keystorePass="123456" maxThreads="150" port="443" protocol="HTTP/1.1" scheme="https" secure="true" sslProtocol="TLS"/>
 
 		<!-- Define an AJP 1.3 Connector on port 8009 -->
 		<!-- 
@@ -99,19 +99,8 @@
 					prefix="localhost_access_log." suffix=".txt" pattern="common" resolveHosts="false"/> -->
 
 
-	<Context docBase="AuthServer" path="/" reloadable="true"
-		source="org.eclipse.jst.jee.server:AuthServer">
-		<!--配置mysql数据库的连接池, 需要做的额外步骤是将mysql的Java驱动类放到tomcat的lib目录下 maxIdle 连接池中最多可空闲maxIdle个连接 
-			minIdle 连接池中最少空闲maxIdle个连接 initialSize 初始化连接数目 maxWait 连接池中连接用完时,新的请求等待时间,毫秒 
-			username 数据库用户名 password 数据库密码 -->
-		<Resource factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
-			name="jdbc/mysqlds" auth="Container" type="javax.sql.DataSource"
-			username="root" password="123456" maxIdle="10" initialSize="1"
-			maxWait="10000" maxActive="20" driverClassName="com.mysql.jdbc.Driver"
-			url="jdbc:mysql://192.168.108.181:3306/user_system" 
-			validationQuery="SELECT 1"
-			testOnBorrow="true" />
-	</Context>
+		
+		
 		
 		</Host>		
 		</Engine>
