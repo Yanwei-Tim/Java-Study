@@ -13,4 +13,8 @@ grep 50 /etc/group
 # 按修改时间降序排列
 [root@mygou2 data]# ls -ltc
 
+#查看指定pid进程信息
+ps -ef|grep 28262
+可以看到 Xms Xmx 信息
 
+root      5081     1  0 Mar28 ?        00:09:58 /mygou/jdk1.6.0_38/bin/java -Xms1G -Xmx1G -Djava.util.logging.config.file=logging.properties -Dhawtio.realm=activemq -Dhawtio.role=admins -Dhawtio.rolePrincipalClasses=org.apache.activemq.jaas.GroupPrincipal -Djava.security.auth.login.config=/mdm/apache-activemq-5.9.0/conf/login.config -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.password.file=/mdm/apache-activemq-5.9.0/conf/jmx.password -Dcom.sun.management.jmxremote.access.file=/mdm/apache-activemq-5.9.0/conf/jmx.access -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote -Djava.rmi.server.hostname=auth.unistrong.com -Djava.awt.headless=true -Djava.io.tmpdir=/mdm/apache-activemq-5.9.0/tmp -Dactivemq.classpath=/mdm/apache-activemq-5.9.0/conf; -Dactivemq.home=/mdm/apache-activemq-5.9.0 -Dactivemq.base=/mdm/apache-activemq-5.9.0 -Dactivemq.conf=/mdm/apache-activemq-5.9.0/conf -Dactivemq.data=/mdm/apache-activemq-5.9.0/data -jar /mdm/apache-activemq-5.9.0/bin/activemq.jar start
