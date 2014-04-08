@@ -67,7 +67,18 @@ Using CATALINA_BASE:   /software/apache-tomcat-6.0.39
 Using CATALINA_HOME:   /software/apache-tomcat-6.0.39
 Using CATALINA_TMPDIR: /software/apache-tomcat-6.0.39/temp
 Using JRE_HOME:        /software/jdk1.6.0_37
-Using CLASSPATH:       /software/apache-tomcat-6.0.39/bin/bootstrap.jar
+Using CLASSPATH:       /software/apache-tomcat-6.0.39/bin/bootstrap.jar\
+
+7. 取消开机启动：
+[root@localhost bin]# chkconfig --list tomcat
+tomcat         	0:关闭	1:关闭	2:关闭	3:关闭	4:关闭	5:关闭	6:关闭
+
+chkconfig 345 tomcat off
+[root@localhost bin]# chkconfig --list tomcat
+tomcat         	0:关闭	1:关闭	2:关闭	3:关闭	4:关闭	5:关闭	6:关闭
+
+
+
 
 
 
