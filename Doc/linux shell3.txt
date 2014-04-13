@@ -8,5 +8,11 @@ vim /etc/sysconfig/iptables
 history |grep unzip
 history |grep du
 
+#curl 下载文件
+curl http://nodejs.org/dist/v0.10.26/node-v0.10.26-linux-x64.tar.gz >node-v0.10.26-linux-x64.tar.gz
+
+#wget 下载文件
+wget  http://nodejs.org/dist/v0.10.26/node-v0.10.26-linux-x64.tar.gz
+
 
 
