@@ -4,3 +4,9 @@ iptables是服务
 vim /etc/sysconfig/iptables
 修改之后重启防火墙即可
 
+#history 查看历史
+history |grep unzip
+history |grep du
+
+
+
