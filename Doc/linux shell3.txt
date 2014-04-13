@@ -1,0 +1,6 @@
+iptables是服务
+位于：/etc/init.d/iptables
+配置文件位于
+vim /etc/sysconfig/iptables
+修改之后重启防火墙即可
+
