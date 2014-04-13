@@ -1,3 +1,9 @@
+zip -r police_20140413_2.zip /police -x /police/mongodb/**\*
+# -x 排除指定文件
+unzip police_20140413.zip -d police_test/
+-d 指定目录
+
+
 #du  统计文件夹大小
 [root@AY140411122332149e97Z /]# du -sh /software
 391M	/software
