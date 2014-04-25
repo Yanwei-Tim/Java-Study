@@ -73,9 +73,12 @@ Using CLASSPATH:       /software/apache-tomcat-6.0.39/bin/bootstrap.jar\
 [root@localhost bin]# chkconfig --list tomcat
 tomcat         	0:关闭	1:关闭	2:关闭	3:关闭	4:关闭	5:关闭	6:关闭
 
-chkconfig 345 tomcat off
+
 [root@localhost bin]# chkconfig --list tomcat
 tomcat         	0:关闭	1:关闭	2:关闭	3:关闭	4:关闭	5:关闭	6:关闭
+
+chkconfig --level 345 tomcat on
+
 
 
 
