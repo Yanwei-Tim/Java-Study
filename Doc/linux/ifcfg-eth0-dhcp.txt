@@ -1,0 +1,7 @@
+EVICE="eth0"
+BOOTPROTO="dhcp"
+HWADDR="44:87:FC:95:AA:29"
+NM_CONTROLLED="yes"
+ONBOOT="yes"
+TYPE="Ethernet"
+UUID="881bec8f-c17e-44fa-8603-f0600823aa7c"
