@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- tc 服务端配置文件  -->
 <tc:tc-config xmlns:tc="http://www.terracotta.org/config"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.terracotta.org/schema/terracotta-6.xsd">
