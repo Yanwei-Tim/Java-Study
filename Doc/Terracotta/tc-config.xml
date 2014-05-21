@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tc:tc-config xmlns:tc="http://www.terracotta.org/config"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.terracotta.org/schema/terracotta-6.xsd">
+	<!-- Server is colocated with client and DSO is listening on
+		default port (9510). -->
+	<servers>
+		<server host="127.0.0.1" name="tc-server1">
+			<data>/police/terracotta/server-data</data>
+			<logs>/police/terracotta/server-logs</logs>
+			<dso-port>9510</dso-port>
+			<dso>
+				<persistence>
+					<mode>permanent-store</mode>
+				</persistence>
+			</dso>
+		</server>
+		<ha>
+			<mode>networked-active-passive</mode>
+			<networked-active-passive>
+				<election-time>5</election-time>
+			</networked-active-passive>
+		</ha>
+	</servers>
+	<!-- Tell DSO where to put the generated client logs.
+		See the Terracotta Configuration Guide and Reference for additional
+		information. -->
+	<clients>
+		<logs>/police/terracotta/client-logs/%D</logs>
+	</clients>
+</tc:tc-config>
