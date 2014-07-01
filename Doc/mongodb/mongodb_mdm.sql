@@ -27,9 +27,9 @@ db.log.aggregate({$group : {_id : "$hosting", total : { $sum : 1 }}} );
 				
 -- 	aggregate	
 db.log.aggregate( 
-{$match : { op_type :0, log_category:2,"$and":[
- {op_time:{$gt:ISODate("2014-03-18T07:50:26.614Z")}}, 
- {op_time:{$lt:ISODate("2014-03-28T23:50:26.614Z")}} 
+{$match : { op_type :2, log_category:1,username:{$in: ["min.zhao","aaa"]},"$and":[
+	{op_time:{$gt:ISODate("2014-03-18T07:50:26.614Z")}}, 
+	{op_time:{$lt:ISODate("2014-03-28T23:50:26.614Z")}} 
  ] }}, 
 {$group : { _id : "$imei", count : { $sum : 1 }}  },  
 {$sort : {count : -1}}, 
